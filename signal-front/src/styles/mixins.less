@@ -1,0 +1,18 @@
+.flex-center() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .transition(@property: all, @duration: 0.5s, @timing: ease) {
+    transition: @property @duration @timing;
+  }
+  
+  .backdrop-blur(@size: 10px) {
+    -webkit-backdrop-filter: blur(@size);
+    backdrop-filter: blur(@size);
+  }
+  
+  .text-shadow(@color) {
+    text-shadow: 0 4px 28px @color;
+  }
