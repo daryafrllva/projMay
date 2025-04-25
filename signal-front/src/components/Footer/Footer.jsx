@@ -3,21 +3,28 @@ import './Footer.less';
 
 const Footer = () => {
   const announcementText = "36SIGNAL"; 
+  const starIcon = "★";
 
   return (
     <footer className="footer-wrapper">
       <div className="marquee-container rotate-left">
-        <div className="marquee-content left-direction">
+        <div className="marquee-content right-direction">
           {[...Array(50)].map((_, i) => (
-            <span key={`left-${i}`} className="marquee-item">{announcementText}</span>
+            <React.Fragment key={`left-${i}`}>
+            <span className="marquee-item">{announcementText}</span>
+            <span className="marquee-star">{starIcon}</span>
+          </React.Fragment>
           ))}
         </div>
       </div>
       
       <div className="marquee-container rotate-right">
-        <div className="marquee-content right-direction">
+        <div className="marquee-content left-direction">
           {[...Array(50)].map((_, i) => (
-            <span key={`right-${i}`} className="marquee-item">{announcementText}</span>
+            <React.Fragment key={`right-${i}`}>
+            <span className="marquee-item">{announcementText}</span>
+            <span className="marquee-star">{starIcon}</span>
+          </React.Fragment>
           ))}
         </div>
       </div>
