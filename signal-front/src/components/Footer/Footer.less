@@ -55,11 +55,11 @@
   width: 200%;
 
   &.left-direction {
-    animation: marqueeLeft 30s linear infinite;
+    animation: marqueeLeft 50s linear infinite;
   }
   
   &.right-direction {
-    animation: marqueeRight 30s linear infinite;
+    animation: marqueeRight 50s linear infinite;
   }
 }
 
@@ -85,7 +85,7 @@
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0); }
+  50% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
