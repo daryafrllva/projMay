@@ -23,13 +23,25 @@ const Header = () => {
         
         <nav className={`header-menu ${isMenuOpen ? 'open' : ''}`}>
           <ul className="navbar-menu">
-            <li><a href="#" className="nav-link">Home</a></li>
-            <li><a href="#" className="nav-link active">Features</a></li>
-            <li><a href="#" className="nav-link">Pricing</a></li>
-            <li><a href="#" className="nav-link">About</a></li>
+            <li><a href="#" className="nav-link">О нас</a></li>
+            <li><a href="#" className="nav-link">Инструкция</a></li>
+            <li><a href="#" className="nav-link">Вики</a></li>
           </ul>
           
           <div className="header-right">
+
+
+            <div className="lingva-block">
+              <div className="lingva-block__body">
+                <button className="lingva-block__btn"></button>
+              </div>
+            </div>
+
+
+
+
+
+
             <div className="account-wrapper">
               <p>Account</p>
               <svg width="25" height="25" viewBox="0 0 25 25" fill="none">

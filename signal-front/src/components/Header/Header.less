@@ -117,9 +117,13 @@
   line-height: 160%;
   color: @white-color;
   .transition();
+  text-decoration: none;
 
-  &.active {
+  &.active { /*при прописании страниц
+  указать, что когда переходим на страницу
+    подсвечивается именно этот раздел */
     color: @main-color;
+    text-decoration: none;
   }
 }
 
@@ -171,10 +175,12 @@
     font-size: 18px;
     line-height: 150%;
     padding: 0;
+    text-decoration: none;
 
     &:hover {
       color: @main-color;
       .text-shadow(@main-shadow-color);
+      text-decoration: none;
     }
   }
 
