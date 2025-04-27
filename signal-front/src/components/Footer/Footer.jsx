@@ -1,9 +1,10 @@
 import React from 'react';
 import './Footer.less';
+import star from '../../assets/png/star.png';
 
 const Footer = () => {
-  const announcementText = "36SIGNAL"; 
-  const starIcon = "★";
+  const announcementText = "AI BOSST USA"; 
+  const starIcon = <img src={star} alt="star" className="marquee-star-icon" />;
 
   return (
     <footer className="footer-wrapper">
