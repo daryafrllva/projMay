@@ -5,24 +5,21 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Loader from './components/Loader/Loader';
 import About from './components/About/About';
-
-const Home = () => (
-    <main className="main-content">
-      <h1>Welcome to MyApp</h1>
-      <p>This is a React application with Vite and Less styles</p>
-    </main>
-);
+import HomePage from './components/HomePage/HomePage';
 
 const App = () => {
+
   return (
       <Router>
         <div className="app">
           <Loader>
             <Header />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-            </Routes>
+            <main className="main-content">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/about" element={<About />} />
+              </Routes>
+            </main>
             <Footer />
           </Loader>
         </div>
