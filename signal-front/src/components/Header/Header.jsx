@@ -35,7 +35,7 @@ const Header = () => {
         
         <nav className={`header-menu ${isMenuOpen ? 'open' : ''}`}>
           <ul className="navbar-menu">
-            <li><a href="#" className="nav-link">О нас</a></li>
+            <li><a href="/about" className="nav-link">О нас</a></li>
             <li><a href="#" className="nav-link">Инструкция</a></li>
             <li><a href="#" className="nav-link">Вики</a></li>
           </ul>
