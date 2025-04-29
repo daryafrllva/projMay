@@ -24,7 +24,6 @@ const Loader = ({ children}) => {
         <div className="loader-dot"></div>
         <div className="loader-dot"></div>
       </div>
-      <p>Loading...</p>
     </div>
     );
     }
