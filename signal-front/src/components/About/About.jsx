@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import './About.less';
-import bar from "../../assets/png/bar.png";
+import bar from "../../assets/svg/bar.svg";
+
 
 const About = () => {
     const sectionsRef = useRef([]);
@@ -50,6 +51,7 @@ const About = () => {
                         <img src={bar} alt="background" className="about-main-image" />
                     </div>
 
+                    <div className="text-sections-container">
                     <section className="about-section" ref={el => sectionsRef.current[0] = el}>
                         <div className="about-section-text">
                             <p>Мы меняем трейдинг, делая его простым, понятным и доступным. Вы ставите цели, а мы предоставляем инструменты, которые ведут к успеху.</p>
@@ -67,6 +69,7 @@ const About = () => {
                             <p>Трейдинг – это ваша история, и мы делаем ее ярче. Удобный интерфейс, передовая аналитика и полная поддержка на каждом этапе – все это помогает вам достигать вершин.</p>
                         </div>
                     </section>
+                    </div>
                 </div>
             </div>
 

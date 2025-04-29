@@ -80,41 +80,46 @@
   position: relative;
 
   .about-main-image {
-    width: 100%;
-    height: auto;
+    width: 80%;
+    margin: 0 auto;
+    display: block;
     border-radius: 12px;
-    object-fit: cover;
     position: relative;
     z-index: 2;
-    transition: all 5s ease-in-out;
+    //box-shadow: 0 4px 20px rgba(0, 168, 255, 0.3);
   }
   &::after {
     content: '';
     position: absolute;
-    bottom: -15px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    height: 30px;
-    background: fade(#00a8ff, 40%); // Голубой цвет с прозрачностью
-    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    width: 4px;
+    height: 110%;
+    background: linear-gradient(
+            to bottom,
+            fade(@main-color, 0%) 0%,
+            fade(@main-color, 90%) 20%,
+            fade(@main-color, 90%) 80%,
+            fade(@main-color, 0%) 100%
+    );
+    border-radius: 2px;
     z-index: 1;
     filter: blur(15px);
-    animation: pulseShadow 5s infinite ease-in-out;
+    animation: pulseGlow 3s infinite ease-in-out;
   }
 }
 @keyframes pulseShadow {
   0%, 100% {
-    width: 90%;
-    height: 30px;
-    opacity: 0.6;
-    bottom: -15px;
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scaleY(1) scaleX(1);
+    width: 4px;
   }
   50% {
-    width: 95%;
-    height: 40px;
-    opacity: 0.9;
-    bottom: -20px;
+    opacity: 1;
+    transform: translate(-50%, -50%) scaleY(1.05) scaleX(1.2);
+    width: 8px;
+    filter: blur(20px);
   }
 }
 .about-image-section .about-main-image {
@@ -136,10 +141,10 @@
   }
 
   &-text {
-    font-size: 18px;
+    font-size: 30px;
     line-height: 1.8;
     margin-bottom: 32px;
-    color: @light-gray;
+    color: @white-color;
     font-family: @font-family;
     padding: 40px;
     background: fade(@black-color, 70%);
@@ -225,24 +230,23 @@
 
 @media (max-width: 768px) {
   .about-image-section::after {
-    width: 85%;
-    height: 20px;
-    filter: blur(10px);
-    animation: pulseShadowMobile 5s infinite ease-in-out;
+    width: 20px;
+    filter: blur(15px);
+    animation: pulseGlowMobile 3s infinite ease-in-out;
   }
 
   @keyframes pulseShadowMobile {
     0%, 100% {
-      width: 85%;
-      height: 20px;
       opacity: 0.6;
-      bottom: -10px;
+      transform: translate(-50%, -50%) scaleY(1) scaleX(0.8);
+      width: 20px;
+      filter: blur(15px);
     }
     50% {
-      width: 90%;
-      height: 25px;
-      opacity: 0.8;
-      bottom: -12px;
+      opacity: 0.9;
+      transform: translate(-50%, -50%) scaleY(1.1) scaleX(1);
+      width: 30px;
+      filter: blur(25px);
     }
   }
 
