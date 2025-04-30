@@ -43,10 +43,11 @@ const About = () => {
 
             <div className="about-content-container">
                 <div className="about-fixed-title">
-                    <h2>Кто мы?</h2>
+                    <h2>КТО МЫ?</h2>
                 </div>
 
                 <div className="about-scroll-content">
+                    <div className="text-sections-wrapper">
                     <div className="about-image-section">
                         <img src={bar} alt="background" className="about-main-image" />
                     </div>
@@ -70,6 +71,7 @@ const About = () => {
                         </div>
                     </section>
                     </div>
+                </div>
                 </div>
             </div>
 

@@ -73,20 +73,29 @@
   width: 60%;
   margin-left: auto;
   padding-right: 5%;
+  position: relative;
 }
 
 .about-image-section {
-  margin-bottom: 80px;
-  position: relative;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  pointer-events: none;
 
   .about-main-image {
-    width: 80%;
-    margin: 0 auto;
-    display: block;
-    border-radius: 12px;
+    width: 50%;
+    max-width: 500px;
     position: relative;
     z-index: 2;
-    //box-shadow: 0 4px 20px rgba(0, 168, 255, 0.3);
+    filter: drop-shadow(0 15px 30px rgba(0, 168, 255, 0.4));
+    border-radius: 50%;
+    animation: pulseImage 5s infinite ease-in-out;
   }
   &::after {
     content: '';
@@ -126,38 +135,37 @@
   animation: pulseImage 5s infinite ease-in-out;
 }
 
-
-.about-section {
-  margin-bottom: 120px;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s ease-out;
+.text-sections-container {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  background: transparent;
+  padding-top: 100vh;
+  .about-section {
+    margin-bottom: 120px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+    position: relative;
 
-  &.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  &-text {
-    font-size: 30px;
-    line-height: 1.8;
-    margin-bottom: 32px;
-    color: @white-color;
-    font-family: @font-family;
-    padding: 40px;
-    background: fade(@black-color, 70%);
-
-    .backdrop-blur(5px);
-
-
-    p {
-      margin-bottom: 16px;
+    &.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    @media (min-width: 1100px) {
-      font-size: 20px;
+    &-text {
+      font-size: 30px;
+      line-height: 1.8;
+      margin-bottom: 32px;
+      color: @white-color;
+      font-family: @font-family;
+      padding: 40px;
+      background: fade(@black-color, 70%);
+      backdrop-filter: blur(5px);
+      border-radius: 12px;
+
+      @media (min-width: 1100px) {
+        font-size: 20px;
+      }
     }
   }
 }
