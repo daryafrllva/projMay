@@ -1999,12 +1999,13 @@ legend {
     margin-top: 35px;
   }
   ._marqueeContainer_17x2r_143 {
-    position: absolute;
-    bottom: 0; /* Привязываем блок к нижней части родительского контейнера */
+    position: relative; /* Изменяем на relative */
+    bottom: 0; /* Убираем отрицательное значение */
     left: 0;
     right: 0;
-    z-index: 10; /* Убедитесь, что он отображается поверх других элементов */
-    background: inherit; /* Сохраняем фон родительского элемента */
+    z-index: 10;
+    background: inherit;
+    margin-top: 50px; /* Добавляем отступ сверху */
   }
   ._bitcoin_17x2r_120,
   ._eth_17x2r_113 {
@@ -3143,6 +3144,7 @@ legend {
     align-items: center;
   }
   ._container_hq2vv_8 {
+    padding-bottom: 150px;
     padding: 40px 24px;
     max-width: 1440px;
     width: 100%;
