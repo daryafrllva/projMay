@@ -1,0 +1,96 @@
+._wrapper_1apmi_1 {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  ._title_1apmi_7 {
+    color: var(--whiteColor, #fbfbfb);
+    text-align: center;
+    font-feature-settings: "liga" off, "clig" off;
+    font-family: Inter, sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+  }
+  ._accent_1apmi_18 {
+    color: var(--blue_color, #0400ff);
+  }
+  ._description_1apmi_22 {
+    color: var(--whiteColor, #fbfbfb);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-feature-settings: "liga" off, "clig" off;
+    font-family: Inter, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    max-width: 940px;
+    margin: 0 auto;
+  }
+  h2._description_1apmi_22 {
+    font-size: 16px;
+    text-align: left;
+    margin-bottom: 15px;
+  }
+  @media (min-width: 692px) {
+    ._title_1apmi_7 {
+      font-size: 50px;
+      line-height: 150%;
+    }
+    ._description_1apmi_22 {
+      font-size: 24px;
+      line-height: 150%;
+    }
+    h2._description_1apmi_22 {
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  }
+  ._wrapper_yvbyh_1 {
+    background: url(/assets/cta-bg-Wi4ZSLUP.png) no-repeat;
+    background-position: right bottom;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    position: relative;
+    padding-left: 25px;
+    padding-right: 25px;
+    min-height: 50vh;
+  }
+  ._wrapper_yvbyh_1:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(162deg, #030303 26.35%, #0000001a 82.83%);
+    z-index: 0;
+  }
+  ._wrapper_yvbyh_1 > * {
+    position: relative;
+    z-index: 1;
+  }
+  ._titlesWrapper_yvbyh_33 > * {
+    text-align: left;
+    margin: 0;
+  }
+  ._buttons_yvbyh_38 {
+    text-align: center;
+  }
+  @media (min-width: 1100px) {
+    ._wrapper_yvbyh_1 {
+      background-position: top left;
+      height: 70vh;
+      padding-left: 105px;
+      padding-right: 105px;
+    }
+  }
+  
