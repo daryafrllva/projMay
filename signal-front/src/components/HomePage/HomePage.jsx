@@ -23,73 +23,23 @@ import three from '../../assets/svg/3.svg';
 import plus from '../../assets/svg/plus.svg';
 import safe from '../../assets/png/safe.png';
 import podium from '../../assets/png/podium.png';
-
 import herovideo from '../../assets/video/hero-video.mp4';
 import mock from '../../assets/video/mock.mp4';
 
 const Homepage = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const sliderRef = useRef(null);
-  const touchStartX = useRef(0);
   const announcementText = "AI BOSST USA";
   const starIcon = <img src={star} alt="star" className="marquee-star" />;
-  const [activeStep, setActiveStep] = useState(0);
-
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setActiveStep(prev => (prev + 1) % 3);
-      }, 6000);
-
-      return () => clearInterval(interval);
-    }, []);
-
-
-    const sliderSettings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 3000,
-    };
-    
-
-  const handleScroll = (event) => {
-    setCurrentSlide((prev) => {
-      if (event.deltaY > 0) {
-
-        return prev < slides.length - 1 ? prev + 1 : prev;
-      } else {
-        return prev > 0 ? prev - 1 : prev;
-      }
-    });
-  };
-
-  const handleTouchStart = (event) => {
-    touchStartX.current = event.touches[0].clientX;
-  };
-
-  const handleTouchMove = (event) => {
-    const touchEndX = event.touches[0].clientX;
-    if (touchStartX.current - touchEndX > 50) {
-      setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    } else if (touchStartX.current - touchEndX < -50) {
-      setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-    }
-  };
-
   return (
     <>
     <div className="_mainWrapper_17x2r_1">
       <section className="_wrapper_hq2vv_1">
         <div className="_container_hq2vv_8 _container_17x2r_16 container">
-        <video className="_video_17x2r_23" src={herovideo}></video>
+        <video className="_video_17x2r_23" src={herovideo} autoPlay muted loop></video>
         <div className="_overlay_17x2r_36"></div>
         <div className="_heroWrapper_17x2r_46">
           <div className="_text_17x2r_124">
             <h1 className='_title_17x2r_51'>
-              <span class="_selected_17x2r_60">AI BOSST USA </span>
+              <span className="_selected_17x2r_60">AI BOSST USA </span>
               PLATFORM
             </h1>
             <h2 className='_description_17x2r_71'>
@@ -142,33 +92,34 @@ const Homepage = () => {
           </div>
         </div>
         </div>
-        
-
+        </section>
         <div className='_marqueeContainer_17x2r_143'> 
   <div className="rfm-marquee-container _marqueeContainer_v1xye_1">
-      <div className="marquee-content right-direction">
+      <div className="marquee-content right-direction rfm-marquee">
         {[...Array(50)].map((_, i) => (
           <React.Fragment key={`left-${i}`}>
-            <span className="marquee-item">{announcementText}</span>
+            <div className='rfm-child'>
+            <span className="marquee-item _text_v1xye_14">{announcementText}</span>
             <span className="marquee-star">{starIcon}</span>
+            </div>
           </React.Fragment>
         ))}
       </div>
     </div>
 
     <div className="rfm-marquee-container _marqueeContainer_v1xye_1">
-      <div className="marquee-content left-direction">
+      <div className="marquee-content left-direction rfm-marquee">
         {[...Array(50)].map((_, i) => (
           <React.Fragment key={`right-${i}`}>
-            <span className="marquee-item">{announcementText}</span>
+            <div className='rfm-child'>
+            <span className="_text_v1xye_14">{announcementText}</span>
             <span className="marquee-star">{starIcon}</span>
+            </div>
           </React.Fragment>
         ))}
       </div>
     </div>
   </div>
-  
-        </section>
 </div>
 
   <section className='_wrapper_hq2vv_1'> 
@@ -228,7 +179,7 @@ const Homepage = () => {
     <h2 className='_title_1apmi_7'>Как это работает?</h2>
   </div>
   <div className='_videoWrapper_1jpyc_19'>
-    <video src={mock} className='_video_1jpyc_10'></video>
+    <video src={mock} className='_video_1jpyc_10' autoPlay muted loop></video>
   </div>
   <div className='_cards_1jpyc_87'>
     <div className='_progressBar_1jpyc_34'>
@@ -268,7 +219,7 @@ const Homepage = () => {
             <div className='_cardContainer_ulq9z_1'>
               <div className='_card_ulq9z_1'>
                 <div className='_top_ulq9z_28'>
-                  <img src={one} alt="1" />
+                  <img src={one} alt="1"  className='_positionImg_ulq9z_35'/>
                   <img src={chart} alt="chart" className='_img_ulq9z_40'/>
                 </div>
                 <div>
@@ -280,7 +231,7 @@ const Homepage = () => {
             <div className='_cardContainer_ulq9z_1 _selected_ulq9z_12'>
             <div className='_card_ulq9z_1'>
                 <div className='_top_ulq9z_28'>
-                  <img src={two} alt="2" />
+                  <img src={two} alt="2" className='_positionImg_ulq9z_35' />
                   <img src={twolmg} alt="chart" className='_img_ulq9z_40'/>
                 </div>
                 <div>
@@ -292,7 +243,7 @@ const Homepage = () => {
             <div className='_cardContainer_ulq9z_1'>
               <div className='_card_ulq9z_1'>
                 <div className='_top_ulq9z_28'>
-                  <img src={three} alt="3" />
+                  <img src={three} alt="3" className='_positionImg_ulq9z_35'/>
                   <img src={threelmg} alt="chart" className='_img_ulq9z_40'/>
                 </div>
                 <div>
