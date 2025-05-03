@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <header className="header-wrapper">
       <div className="header-container">
-        <div className="logo">MyApp</div>
+        <a href="/" className="_link_18p1q_1">AI BOOST USA</a>
         
         <div 
           className={`header-burger ${isMenuOpen ? 'open' : ''}`} 

@@ -9,6 +9,7 @@ import HomePage from './components/HomePage/HomePage';
 import Login from './components/Vxod/Login';
 import Register from './components/Vxod/Register';
 import ConfirmEmail from './components/Vxod/confirm-email';
+import ForgotPassword from './components/Vxod/forgot-password';
 import ActivatedEmail from './components/Vxod/activated-email';
 import EnterId from './components/Vxod/enter-id';
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/confirm-email" element={<ConfirmEmail />} />
             <Route path="/activated-email" element={<ActivatedEmail />} />
             <Route path="/enter-id" element={<EnterId />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/" element={
               <>
                 <Header />
