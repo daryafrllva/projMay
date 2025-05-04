@@ -1,6 +1,9 @@
-
+// AboutAs.jsx
 import React, { useRef, useEffect } from 'react';
-import bar from "../../assets/svg/bar.svg";
+import hand3 from "../../assets/svg/hand3.svg";
+import barsImg from "../../assets/png/bar.png";
+import shieldImg from "../../assets/png/shield.png";
+import goldImg from "../../assets/png/gold.png";
 
 const AboutAs = () => {
     const sectionsRef = useRef([]);
@@ -29,33 +32,54 @@ const AboutAs = () => {
     }, []);
 
     return (
-        <div className="about-content-container">
-            <div className="about-fixed-title">
-                <h2>Кто мы?</h2>
-            </div>
-            <div className="about-scroll-content">
-                <div className="about-image-section">
-                    <img
-                        className="about-main-image"
-                        src={bar}
-                        alt="About us visual"
-                    />
-                </div>
-                <div className="text-sections-wrapper">
-                    <div className="text-sections-container">
+        <section className="_wrapper_hq2vv_1 about-section-wrapper">
+            <div className="_container_hq2vv_8 _whoContainer_wotaq_110">
+                <h2 className="_whoTitle_wotaq_40">Кто мы?</h2>
+                <div className="_whoWrapper_wotaq_50">
+                    <div className="_whoHandImg_wotaq_95">
+                        <img
+                            src={hand3}
+                            alt="About us visual"
+                            className="about-main-image"
+                        />
+                    </div>
+
+                    <div className="_whoTextsContainer_wotaq_58">
                         <div
-                            className="about-section"
+                            className="about-section _whoTextBlock_wotaq_58"
                             ref={el => sectionsRef.current[0] = el}
                         >
-                            <p className="about-section-text">
-                                Your about section text here...
+                            <img src={barsImg} alt="bars" className="_whoImg_wotaq_70" />
+                            <p className="_whoParagraph_wotaq_58">
+                                Мы меняем трейдинг, делая его простым, понятным и доступным. Вы ставите цели, а мы предоставляем инструменты, которые ведут к успеху.
+                            </p>
+                            <div className="_dividerLine_wotaq_58"></div>
+                        </div>
+
+                        <div
+                            className="about-section _whoTextBlock_wotaq_58"
+                            ref={el => sectionsRef.current[1] = el}
+                        >
+                            <img src={shieldImg} alt="shield" className="_whoImg_wotaq_70" />
+                            <p className="_whoParagraph_wotaq_58">
+                                Технологии и аналитика работают на вас. Мы создаем решения, которые снижают риски и максимизируют прибыль в каждой сделке.
+                            </p>
+                            <div className="_dividerLine_wotaq_58"></div>
+                        </div>
+
+                        <div
+                            className="about-section _whoTextBlock_wotaq_58"
+                            ref={el => sectionsRef.current[2] = el}
+                        >
+                            <img src={goldImg} alt="gold" className="_whoImg_wotaq_70" />
+                            <p className="_whoParagraph_wotaq_58">
+                                Трейдинг – это ваша история, и мы делаем ее ярче. Удобный интерфейс, передовая аналитика и полная поддержка на каждом этапе – все это помогает вам достигать вершин.
                             </p>
                         </div>
-                        {/* Add more sections as needed */}
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
