@@ -446,6 +446,13 @@ button._account_dltkq_123._active_dltkq_119 svg path {
   position: relative;
   z-index: 1;
 }
+
+._container_hq2vv_8._wrapper_yvbyh_1 {
+  background-image: url('../../assets/png/cta-bg.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+}
 ._text_v1xye_14 {
   font-family: var(--font-family);
   font-weight: 400;
@@ -458,6 +465,10 @@ button._account_dltkq_123._active_dltkq_119 svg path {
   align-items: center;
   gap: 50px;
   padding-left: 50px;
+}
+.rfm-child {
+  display: flex;
+  align-items: center; /* Выровняет текст и картинку по вертикали */
 }
 @media (min-width: 1740px) {
   ._marqueeContainer_v1xye_1 {

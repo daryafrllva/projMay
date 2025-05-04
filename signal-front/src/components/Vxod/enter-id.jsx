@@ -11,6 +11,9 @@ const EnterId = () => {
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1100);
     const [isClosing, setIsClosing] = useState(false);
 
+    const [id, setId] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+
     const handleOpenModal = (modalId) => {
         setActiveModal(modalId);
         setIsClosing(false);
@@ -60,6 +63,36 @@ const EnterId = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        if (!id) {
+            setErrorMessage('ID не может быть пустым.');
+            return;
+        }
+    
+        try {
+            const response = await fetch('https://your-backend-url.com/verify-id', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id }),
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                alert('ID успешно проверен!');
+            } else {
+                const errorData = await response.json();
+                setErrorMessage(errorData.message || 'Ошибка проверки ID.');
+            }
+        } catch (error) {
+            console.error('Ошибка:', error);
+            setErrorMessage('Произошла ошибка. Попробуйте снова.');
+        }
+    };
+
     return (
         <>
             <div className='_wrapper_16p5b_1'>
@@ -89,13 +122,20 @@ const EnterId = () => {
                                 Если у вас уже есть аккаунт, сначала выйдите из него (или удалите), а затем зарегистрируйтесь по этой ссылке. Иначе мы не получим ваш ID.
                             </p>
                         </div>
-                        <form className='_form_yllvt_59'>
+                        <form className='_form_yllvt_59' onSubmit={handleSubmit}>
                             <p className='_whereIsId_yllvt_73' onClick={() => handleOpenModal('whereId')}>Где найти ID?</p>
                             <div className='_wrapper_13v8j_1'>
                                 <div className='_inputContainer_13v8j_5'>
-                                    <input type="number" className='_input_13v8j_5' placeholder='ID' />
+                                    <input
+                                        type="number"
+                                        className='_input_13v8j_5'
+                                        placeholder='ID'
+                                        value={id}
+                                        onChange={(e) => setId(e.target.value)}
+                                    />
                                 </div>
                             </div>
+                            {errorMessage && <p className='_errorText_yllvt_93'>{errorMessage}</p>}
                             <button type="submit" className='_button_13fxj_1 _button_yllvt_69 _action_13fxj_13'>
                                 <span>Создать аккаунт</span>
                                 <img src={click} alt="click" />

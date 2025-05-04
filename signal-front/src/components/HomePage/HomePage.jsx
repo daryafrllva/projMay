@@ -8,7 +8,6 @@ import success from '../../assets/png/success.png';
 import bitcoin from '../../assets/png/bitcoin.png';
 import bitc from '../../assets/png/bitc.png';
 import chart from '../../assets/png/chart.png';
-import ctabg from '../../assets/png/cta-bg.png';
 import gold from '../../assets/png/gold.png';
 import threelmg from '../../assets/png/threelmg.png';
 import twolmg from '../../assets/png/twolmg.png';
@@ -73,7 +72,7 @@ const Homepage = () => {
                 <p className='_text_suqtr_9'>Неудачные сигналы</p>
                 </div>
               </div>
-              <a className='_button_13fxj_1 _button_17x2r_81 _action_13fxj_13'>
+              <a href="/register" className='_button_13fxj_1 _button_17x2r_81 _action_13fxj_13'>
                 <span>Регистрация</span>
                 <img src={click} alt="coursor" />
               </a>
@@ -99,7 +98,7 @@ const Homepage = () => {
         {[...Array(50)].map((_, i) => (
           <React.Fragment key={`left-${i}`}>
             <div className='rfm-child'>
-            <span className="marquee-item _text_v1xye_14">{announcementText}</span>
+            <span className="_text_v1xye_14">{announcementText}</span>
             <span className="marquee-star">{starIcon}</span>
             </div>
           </React.Fragment>
@@ -348,12 +347,13 @@ const Homepage = () => {
 
 <section className='_wrapper_hq2vv_1'>
   <div className='_container_hq2vv_8 _wrapper_yvbyh_1'>
+    
     <div className='_wrapper_1apmi_1 _titlesWrapper_yvbyh_33'>
       <h2 className='_title_1apmi_7'>Будьте в курсе всех трендов трейдинга!</h2>
       <p className='_description_1apmi_22'>Регистрируйтесь и получайте доступ к аналитике, эксклюзивным стратегиям.</p>
     </div>
     <div className='_buttons_yvbyh_38'>
-      <a href="" className='_button_13fxj_1 _action_13fxj_13'>
+      <a href="/login" className='_button_13fxj_1 _action_13fxj_13'>
         <span>Авторизация</span>
         <img src={click} alt="click" />
       </a>
