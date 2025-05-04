@@ -21,37 +21,47 @@ const Register = () => {
         setFormData({ ...formData, [name]: value });
     };
 
+    const validatePassword = (password) => {
+        const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+        return passwordRegex.test(password);
+      };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+      
+        if (!validatePassword(formData.password)) {
+          alert('Пароль должен содержать минимум 8 символов, 1 цифру и 1 специальный символ.');
+          return;
+        }
+      
         if (formData.password !== formData.confirmPassword) {
-            alert('Пароли не совпадают');
-            return;
+          alert('Пароли не совпадают');
+          return;
         }
-
+      
         try {
-            const response = await fetch('https://your-backend-url.com/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: formData.email,
-                    password: formData.password,
-                }),
-            });
-
-            if (response.ok) {
-                navigate('/confirm-email');
-            } else {
-                const errorData = await response.json();
-                alert(errorData.message || 'Ошибка регистрации');
-            }
+          const response = await fetch('https://your-backend-url.com/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: formData.email,
+              password: formData.password,
+            }),
+          });
+      
+          if (response.ok) {
+            navigate('/confirm-email');
+          } else {
+            const errorData = await response.json();
+            alert(errorData.message || 'Ошибка регистрации');
+          }
         } catch (error) {
-            console.error('Ошибка:', error);
-            alert('Произошла ошибка. Попробуйте снова.');
+          console.error('Ошибка:', error);
+          alert('Произошла ошибка. Попробуйте снова.');
         }
-    };
+      };
 
     return (
         <>

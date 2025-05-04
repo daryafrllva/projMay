@@ -8,7 +8,6 @@ import success from '../../assets/png/success.png';
 import bitcoin from '../../assets/png/bitcoin.png';
 import bitc from '../../assets/png/bitc.png';
 import chart from '../../assets/png/chart.png';
-import ctabg from '../../assets/png/cta-bg.png';
 import gold from '../../assets/png/gold.png';
 import threelmg from '../../assets/png/threelmg.png';
 import twolmg from '../../assets/png/twolmg.png';
