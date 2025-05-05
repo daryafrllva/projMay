@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
@@ -15,16 +16,27 @@ import EnterId from './components/Vxod/enter-id';
 import History from './components/Profile/history';
 import Account from './components/Profile/account';
 import Wiki from "./components/Wiki/WikiPage.jsx";
-
+import Signal from "./components/Profile/signal";
 
 const App = () => {
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
 
-  const noHeaderRoutes = ['/login', '/register', '/confirm-email', '/forgot-password'];
+  useEffect(() => {
+    const fetchData = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 2000)); 
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  const noHeaderRoutes = ['/login', '/register', '/confirm-email', '/forgot-password', '/activated-email','/enter-id'];
 
   return (
     <div className="app">
       <Loader>
+      <ToastContainer />
         {!noHeaderRoutes.includes(location.pathname) && <Header />}
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -33,7 +45,6 @@ const App = () => {
           <Route path="/activated-email" element={<ActivatedEmail />} />
           <Route path="/enter-id" element={<EnterId />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/history" element={<History />} />
           <Route path="/account" element={<Account />} />
           <Route path="/" element={
             <>
@@ -55,6 +66,14 @@ const App = () => {
             <>
               <main className="main-content">
                 <Wiki />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/signal" element={
+            <>
+              <main className="main-content">
+                <Signal />
               </main>
               <Footer />
             </>

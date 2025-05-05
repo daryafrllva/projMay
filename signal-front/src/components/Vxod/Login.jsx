@@ -1,5 +1,6 @@
 import cross from '../../assets/svg/cross.svg'
 import eye from '../../assets/svg/eye.svg'
+import openeye from '../../assets/svg/open-eye.svg'
 import bitc from '../../assets/png/bitc.png';
 import bar from '../../assets/png/bar.png';
 import bitcoin from '../../assets/png/bitcoin.png';
@@ -33,9 +34,8 @@ const Login = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                // Сохраняем токен или другую информацию, если нужно
                 localStorage.setItem('token', data.token);
-                navigate('/signal'); // Перенаправляем на страницу /signal
+                navigate('/signal'); 
             } else {
                 alert('Ошибка входа. Проверьте введённые данные.');
             }

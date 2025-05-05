@@ -1,8 +1,12 @@
+import React, { useState, useEffect } from 'react';
 import click from '../../assets/svg/click.svg';
+import { toast } from 'react-toastify';
 import lock from '../../assets/png/lock.png';
 import chartlock from '../../assets/png/chartLock.png';
 import cross from '../../assets/svg/cross.svg'
 import "./forgot.css";
+import { ToastContainer } from 'react-toastify';
+
 const ForgotPassword = () => {
 
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -43,14 +47,15 @@ const ForgotPassword = () => {
           });
     
           if (response.ok) {
+            toast.success('Письмо отправлено! Проверьте вашу почту.');
             startTimer(); 
-          } else {
-            alert('Ошибка при отправке запроса. Попробуйте снова.');
-          }
-        } catch (error) {
-          console.error('Ошибка:', error);
-          alert('Ошибка при подключении к серверу.');
+        } else {
+            toast.error('Ошибка при отправке запроса. Попробуйте снова.');
         }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        toast.error('Ошибка при подключении к серверу.');
+    }
       };
 
         return(
@@ -102,6 +107,7 @@ const ForgotPassword = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
             </>
 );
 
