@@ -67,7 +67,7 @@ const Header = () => {
                         className={`_langButton_1xdl1_17 ${currentLang === 'UA' ? '_active_1xdl1_26' : ''}`}
                         onClick={() => selectLanguage('UA')}
                     >
-                      ES
+                      UA
                     </button>
                   </div>
                 </div>
