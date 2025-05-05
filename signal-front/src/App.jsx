@@ -13,6 +13,8 @@ import ForgotPassword from './components/Vxod/forgot-password';
 import ActivatedEmail from './components/Vxod/activated-email';
 import EnterId from './components/Vxod/enter-id';
 import History from './components/Profile/history';
+import Wiki from "./components/Wiki/WikiPage.jsx";
+
 
 const App = () => {
   const location = useLocation();
@@ -43,6 +45,14 @@ const App = () => {
             <>
               <main className="main-content">
                 <About />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/Wiki" element={
+            <>
+              <main className="main-content">
+                <Wiki />
               </main>
               <Footer />
             </>

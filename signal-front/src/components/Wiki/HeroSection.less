@@ -1,0 +1,32 @@
+.hero-wrapper {
+  background: url('/assets/hero-bg.jpg') no-repeat center center;
+  background-size: cover;
+  position: relative;
+  padding: 80px 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+  }
+
+  ._titlesContainer_1hb89_24 {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+// Используем существующие стили из CTA-8IR3FZCi.css
+._title_1apmi_7 {
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+._description_1apmi_22 {
+  color: rgba(255,255,255,0.9);
+}

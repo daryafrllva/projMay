@@ -1,0 +1,30 @@
+._card_14fbx_1 {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+._top_14fbx_14 {
+  height: 180px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  }
+}
+
+._bottom_14fbx_24 {
+  background: #1a1a2e;
+  padding: 20px;
+}

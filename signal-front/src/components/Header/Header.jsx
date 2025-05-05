@@ -37,7 +37,7 @@ const Header = () => {
           <ul className="navbar-menu">
             <li><a href="/about" className="nav-link">О нас</a></li>
             <li><a href="#" className="nav-link">Инструкция</a></li>
-            <li><a href="#" className="nav-link">Вики</a></li>
+            <li><a href="/wiki" className="nav-link">Вики</a></li>
           </ul>
           
           <div className="header-right">
