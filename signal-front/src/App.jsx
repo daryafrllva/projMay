@@ -13,6 +13,7 @@ import ForgotPassword from './components/Vxod/forgot-password';
 import ActivatedEmail from './components/Vxod/activated-email';
 import EnterId from './components/Vxod/enter-id';
 import History from './components/Profile/history';
+import Account from './components/Profile/account';
 import Wiki from "./components/Wiki/WikiPage.jsx";
 
 
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/enter-id" element={<EnterId />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/history" element={<History />} />
+          <Route path="/account" element={<Account />} />
           <Route path="/" element={
             <>
               <main className="main-content">

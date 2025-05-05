@@ -306,3 +306,187 @@
     padding: 8px 12px;
   }
 }
+// Дополнительные стили для шапки
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+
+  .logo-text {
+    font-family: @second-family;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 1;
+    color: @white-color;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .logo-beta {
+    font-family: @second-family;
+    font-weight: 700;
+    font-size: 12px;
+    color: @main-color;
+    padding: 2px 6px;
+    background: fade(@white-color, 10%);
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+}
+
+.language-selector {
+  position: relative;
+  z-index: 10;
+}
+
+.language-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  font-family: @second-family;
+  color: @white-color;
+  transition: all 0.2s;
+
+  &:hover {
+    color: @main-color;
+  }
+
+  &.open {
+    color: @main-color;
+  }
+}
+
+.current-language {
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 125%;
+}
+
+.language-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 120px;
+  background: fade(@black-color, 90%);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+}
+
+.language-option {
+  font-family: @second-family;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 125%;
+  text-align: left;
+  color: @white-color;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: all 0.2s;
+
+  &:hover {
+    color: @main-color;
+    background: fade(@main-color, 10%);
+  }
+
+  &.active {
+    color: @main-color;
+    font-weight: 800;
+  }
+}
+
+.account-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.login-link {
+  font-family: @second-family;
+  font-weight: 700;
+  font-size: 16px;
+  color: @white-color;
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover {
+    color: @main-color;
+  }
+}
+
+.register-button {
+  padding: 10px 20px;
+  background: @main-color;
+  border-radius: 8px;
+  font-family: @second-family;
+  font-weight: 700;
+  font-size: 16px;
+  color: @black-color;
+  text-decoration: none;
+  transition: all 0.2s;
+
+  &:hover {
+    background: lighten(@main-color, 10%);
+    box-shadow: 0 4px 12px fade(@main-color, 30%);
+  }
+}
+
+// Десктоп стили
+@media (min-width: 1100px) {
+  .header-logo {
+    .logo-text {
+      font-size: 28px;
+    }
+
+    .logo-beta {
+      font-size: 14px;
+    }
+  }
+
+  .current-language {
+    font-size: 18px;
+  }
+
+  .language-dropdown {
+    width: 140px;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .language-option {
+    font-size: 18px;
+    padding: 8px 12px;
+  }
+
+  .login-link {
+    font-size: 18px;
+  }
+
+  .register-button {
+    padding: 12px 24px;
+    font-size: 18px;
+  }
+}

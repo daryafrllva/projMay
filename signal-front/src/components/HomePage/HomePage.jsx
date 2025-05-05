@@ -28,6 +28,35 @@ import mock from '../../assets/video/mock.mp4';
 const Homepage = () => {
   const announcementText = "AI BOSST USA";
   const starIcon = <img src={star} alt="star" className="marquee-star" />;
+
+  const [onlineUsers, setOnlineUsers] = useState(0);
+  const [successfulSignals, setSuccessfulSignals] = useState(0);
+  const [unsuccessfulSignals, setUnsuccessfulSignals] = useState(0);
+  
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch('https://your-backend-url.com/stats', {
+          method: 'GET',
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setOnlineUsers(data.onlineUsers);
+          setSuccessfulSignals(data.successfulSignals);
+          setUnsuccessfulSignals(data.unsuccessfulSignals);
+        } else {
+          console.error('Ошибка при получении статистики.');
+        }
+      } catch (error) {
+        console.error('Ошибка:', error);
+      }
+    };
+
+    fetchStats();
+  }, []);
+  
+
   return (
     <>
     <div className="_mainWrapper_17x2r_1">
@@ -52,21 +81,21 @@ const Homepage = () => {
                 
                 <div className="_card_suqtr_1">
                   <div className='_stats_suqtr_17'>
-                  <p>9963</p>
+                  <p>{onlineUsers}</p>
                   <img src={online} alt="monitor"/>
                 </div>
                 <p className='_text_suqtr_9'>Онлайн посетители</p>
                 </div>
                 <div className="_card_suqtr_1">
                 <div className='_stats_suqtr_17'>
-                  <p>20195</p>
+                  <p>{successfulSignals}</p>
                   <img src={success} alt="green shield"/>
                 </div>
                 <p className='_text_suqtr_9'>Успешные сигналы</p>
                 </div>
                 <div className="_card_suqtr_1">
                 <div className='_stats_suqtr_17'>
-                  <p>8018</p>
+                  <p>{unsuccessfulSignals}</p>
                   <img src={loss} alt="red shield"/>
                 </div>
                 <p className='_text_suqtr_9'>Неудачные сигналы</p>

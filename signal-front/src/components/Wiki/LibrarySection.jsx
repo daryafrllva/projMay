@@ -1,4 +1,5 @@
 import React from 'react';
+import guideImage from '../../assets/png/guide.png';
 
 const LibrarySection = () => {
     const articles = [
@@ -7,49 +8,49 @@ const LibrarySection = () => {
             description: "Углублённый гид по бинарным опционам: как они работают, чем отличаются от других инструментов, их риски и стратегии. Разоблачение мифов о казино и пошаговое понимание механики трейдинга.",
             time: "10 мин",
             link: "./html/understanding-binary-options.html",
-            image: "/assets/png/guide.jpg"
+            image: guideImage
         },
         {
             title: "Стратегии успешной торговли",
             description: "Изучите проверенные стратегии, которые помогут вам стабильно зарабатывать на бинарных опционах. Подходит для трейдеров всех уровней.",
             time: "8 мин",
             link: "./html/successful-trading-strategies.html",
-            image: "/assets/png/guide.jpg"
+            image: guideImage
         },
         {
             title: "Методы управления рисками",
             description: "Откройте для себя проверенные стратегии управления рисками в трейдинге бинарными опционами. Научитесь защищать свой капитал и использовать сигналы нашей платформы эффективно.",
             time: "7 мин",
             link: "./html/risk-management-methods.html",
-            image: "/assets/png/guide.jpg"
+            image: guideImage
         },
         {
             title: "Стратегия Мартингейл в бинарных опционах",
             description: "Пошаговое руководство по применению стратегии Мартингейл в трейдинге бинарными опционами. Принципы, примеры, риски и советы по управлению капиталом.",
             time: "6 мин",
             link: "./html/martingale-strategy.html",
-            image: "/assets/png/guide.jpg"
+            image: guideImage
         },
         {
             title: "Индикаторная стратегия RSI + SMA",
             description: "Разбор стратегии, основанной на сочетании индикаторов RSI и скользящей средней SMA. Идеальный баланс между трендовым и осцилляторным подходом для бинарных опционов.",
             time: "7 мин",
             link: "./html/rsi-sma-strategy.html",
-            image: "/assets/png/guide.jpg"
+            image: guideImage
         },
         {
             title: "Торговля от уровней поддержки и сопротивления",
             description: "Стратегия, основанная на анализе ключевых уровней рынка. Идеальна для бинарных опционов благодаря высокой точности точек входа.",
             time: "6 мин",
             link: "./html/support-resistance-strategy.html",
-            image: "/assets/png/guide.jpg"
+            image: guideImage
         },
         {
             title: "Выбор подходящего брокера",
             description: "Узнайте, как выбрать лучшего брокера для торговли бинарными опционами.",
             time: "6 мин",
             link: "./html/choose-broker.html",
-            image: "/assets/png/guide.jpg"
+            image: guideImage
         }
     ];
 
