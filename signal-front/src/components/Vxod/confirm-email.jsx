@@ -3,8 +3,10 @@ import click from '../../assets/svg/click.svg';
 import cross from '../../assets/svg/cross.svg'
 import './confirm.css';
 import './activate.css';
-const ConfirmEmail = () => {
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+const ConfirmEmail = ({ email }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [timer, setTimer] = useState(30); // Таймер на 30 секунд
 
@@ -27,24 +29,28 @@ const ConfirmEmail = () => {
 
     const resendEmail = async () => {
         try {
-            const response = await fetch('https://your-backend-url.com/resend-confirmation', {
+            const response = await fetch('http://localhost:8000/api/email/verification-notification', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                 },
-                body: JSON.stringify({ email: 'user@example.com' }), // Замените на email пользователя
+                // Если пользователь авторизован через токен, добавьте credentials: 'include'
+                // credentials: 'include',
+                body: JSON.stringify({ email }), // Если email нужен, иначе уберите
             });
 
             if (response.ok) {
-                alert('Письмо отправлено повторно.');
-                setIsButtonDisabled(true); // Блокируем кнопку
-                setTimer(30); // Сбрасываем таймер
+                toast.success('Письмо отправлено повторно.');
+                setIsButtonDisabled(true);
+                setTimer(30);
             } else {
-                alert('Ошибка при отправке письма. Попробуйте снова.');
+                const data = await response.json();
+                toast.error(data.message || 'Ошибка при отправке письма. Попробуйте снова.');
             }
         } catch (error) {
             console.error('Ошибка:', error);
-            alert('Произошла ошибка. Попробуйте снова.');
+            toast.error('Произошла ошибка. Попробуйте снова.');
         }
     };
 
@@ -79,6 +85,7 @@ const ConfirmEmail = () => {
                 </div>
             </div>
         </div>
+        <ToastContainer />
         </>
     );
 };

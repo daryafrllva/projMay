@@ -36,28 +36,28 @@ const Homepage = ({ isAuthenticated }) => {
   const successfulSignals = 468;
   const unsuccessfulSignals = 72;
   
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const response = await fetch('https://your-backend-url.com/stats', {
-          method: 'GET',
-        });
+  // useEffect(() => {
+  //   const fetchStats = async () => {
+  //     try {
+  //       const response = await fetch('https://your-backend-url.com/stats', {
+  //         method: 'GET',
+  //       });
 
-        if (response.ok) {
-          const data = await response.json();
-          setOnlineUsers(data.onlineUsers);
-          setSuccessfulSignals(data.successfulSignals);
-          setUnsuccessfulSignals(data.unsuccessfulSignals);
-        } else {
-          console.error('Ошибка при получении статистики.');
-        }
-      } catch (error) {
-        console.error('Ошибка:', error);
-      }
-    };
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         setOnlineUsers(data.onlineUsers);
+  //         setSuccessfulSignals(data.successfulSignals);
+  //         setUnsuccessfulSignals(data.unsuccessfulSignals);
+  //       } else {
+  //         console.error('Ошибка при получении статистики.');
+  //       }
+  //     } catch (error) {
+  //       console.error('Ошибка:', error);
+  //     }
+  //   };
 
-    fetchStats();
-  }, []);
+  //   fetchStats();
+  // }, []);
   const [activeFaq, setActiveFaq] = useState(null);
   return (
     <>
