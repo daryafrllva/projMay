@@ -2,11 +2,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cross from '../../assets/svg/cross.svg';
 import eye from '../../assets/svg/eye.svg';
+import openeye from '../../assets/svg/open-eye.svg'
 import bitc from '../../assets/png/bitc.png';
 import bar from '../../assets/png/bar.png';
 import bitcoin from '../../assets/png/bitcoin.png';
 import click from '../../assets/svg/click.svg';
 import './login.css';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -14,6 +17,8 @@ const Register = () => {
         password: '',
         confirmPassword: '',
     });
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -24,47 +29,48 @@ const Register = () => {
     const validatePassword = (password) => {
         const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
         return passwordRegex.test(password);
-      };
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-      
+
         if (!validatePassword(formData.password)) {
-          alert('Пароль должен содержать минимум 8 символов, 1 цифру и 1 специальный символ.');
-          return;
+            toast.error('Пароль должен содержать минимум 8 символов, 1 цифру и 1 специальный символ.');
+            return;
         }
-      
+
         if (formData.password !== formData.confirmPassword) {
-          alert('Пароли не совпадают');
-          return;
+            toast.error('Пароли не совпадают');
+            return;
         }
-      
+
         try {
-          const response = await fetch('https://your-backend-url.com/register', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: formData.email,
-              password: formData.password,
-            }),
-          });
-      
-          if (response.ok) {
-            navigate('/confirm-email');
-          } else {
-            const errorData = await response.json();
-            alert(errorData.message || 'Ошибка регистрации');
-          }
+            const response = await fetch('https://your-backend-url.com/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                }),
+            });
+
+            if (response.ok) {
+                navigate('/confirm-email');
+            } else {
+                const errorData = await response.json();
+                toast.error(errorData.message || 'Ошибка регистрации');
+            }
         } catch (error) {
-          console.error('Ошибка:', error);
-          alert('Произошла ошибка. Попробуйте снова.');
+            console.error('Ошибка:', error);
+            toast.error('Произошла ошибка. Попробуйте снова.');
         }
-      };
+    };
 
     return (
         <>
+            <ToastContainer position="top-center" />
             <div className="_wrapper_16p5b_1">
                 <a href="/" className="_cross_16p5b_7">
                     <img src={cross} alt="cross" />
@@ -98,30 +104,40 @@ const Register = () => {
                                     <div className="_wrapper_13v8j_1">
                                         <div className="_inputContainer_13v8j_5 _password_13v8j_35">
                                             <input
-                                                type="password"
+                                                type={showPassword ? "text" : "password"}
                                                 name="password"
                                                 className="_input_13v8j_5"
                                                 placeholder="Пароль"
                                                 value={formData.password}
                                                 onChange={handleChange}
                                             />
-                                            <label htmlFor="" className="_eye_13v8j_10">
-                                                <img src={eye} alt="eye" />
+                                            <label
+                                                htmlFor=""
+                                                className="_eye_13v8j_10"
+                                                style={{ cursor: 'pointer' }}
+                                                onClick={() => setShowPassword((v) => !v)}
+                                            >
+                                                <img src={showPassword ? openeye : eye} alt="eye" />
                                             </label>
                                         </div>
                                     </div>
                                     <div className="_wrapper_13v8j_1">
                                         <div className="_inputContainer_13v8j_5 _password_13v8j_35">
                                             <input
-                                                type="password"
+                                                type={showConfirmPassword ? "text" : "password"}
                                                 name="confirmPassword"
                                                 className="_input_13v8j_5"
                                                 placeholder="Повторите пароль"
                                                 value={formData.confirmPassword}
                                                 onChange={handleChange}
                                             />
-                                            <label htmlFor="" className="_eye_13v8j_10">
-                                                <img src={eye} alt="eye" />
+                                            <label
+                                                htmlFor=""
+                                                className="_eye_13v8j_10"
+                                                style={{ cursor: 'pointer' }}
+                                                onClick={() => setShowConfirmPassword((v) => !v)}
+                                            >
+                                                <img src={showConfirmPassword ? openeye : eye} alt="eye" />
                                             </label>
                                         </div>
                                     </div>

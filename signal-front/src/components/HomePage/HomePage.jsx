@@ -55,8 +55,7 @@ const Homepage = () => {
 
     fetchStats();
   }, []);
-  
-
+  const [activeFaq, setActiveFaq] = useState(null);
   return (
     <>
     <div className="_mainWrapper_17x2r_1">
@@ -290,81 +289,122 @@ const Homepage = () => {
     <img src={bitc} alt="bitcoin" className='_bitcoin_7q4q7_53' />
     <img src={gold} alt="gold" className='_gold_7q4q7_54'/>
     <div className='_cards_7q4q7_9'>
+      {/* FAQ 1 */}
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
-          <div className='_title_1uqbn_9'>
-          Как начать торговлю на вашей платформе?
-          <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
+          <div
+            className='_title_1uqbn_9'
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveFaq(activeFaq === 1 ? null : 1)}
+          >
+            Как начать торговлю на вашей платформе?
+            <img src={plus} alt="plus" className={`_plusImg_1uqbn_22${activeFaq === 1 ? ' _plusOpen_1uqbn_30' : ''}`} />
           </div>
-          <div className='_expanderContainer_1uqbn_47'>
-            <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>Чтобы начать торговлю, зарегистрируйте аккаунт и пополните баланс у брокера Pocket Option. После этого вы готовы сделать свой первый шаг в трейдинге. </div>
+          <div className={`_expanderContainer_1uqbn_47${activeFaq === 1 ? ' _open_1uqbn_54' : ''}`}>
+            <div className={`_expander_1uqbn_47${activeFaq === 1 ? ' _open_1uqbn_54' : ''}`}>
+              <div className='_description_1uqbn_34'>
+                Чтобы начать торговлю, зарегистрируйте аккаунт и пополните баланс у брокера Pocket Option. После этого вы готовы сделать свой первый шаг в трейдинге.
+              </div>
             </div>
           </div>
         </div>
       </div>
+      {/* FAQ 2 */}
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
-          <div className='_title_1uqbn_9'>
-          Нужно ли платить за сигналы?
-          <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
+          <div
+            className='_title_1uqbn_9'
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveFaq(activeFaq === 2 ? null : 2)}
+          >
+            Нужно ли платить за сигналы?
+            <img src={plus} alt="plus" className={`_plusImg_1uqbn_22${activeFaq === 2 ? ' _plusOpen_1uqbn_30' : ''}`} />
           </div>
-          <div className='_expanderContainer_1uqbn_47'>
-            <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>Нет! Сигналы от AI BOOST USA абсолютно бесплатные, но чтобы получить доступ, нужно быть нашим рефералом на Pocket Option и пополнить счёт на $10. </div>
+          <div className={`_expanderContainer_1uqbn_47${activeFaq === 2 ? ' _open_1uqbn_54' : ''}`}>
+            <div className={`_expander_1uqbn_47${activeFaq === 2 ? ' _open_1uqbn_54' : ''}`}>
+              <div className='_description_1uqbn_34'>
+                Нет! Сигналы от AI BOOST USA абсолютно бесплатные, но чтобы получить доступ, нужно быть нашим рефералом на Pocket Option и пополнить счёт на $10.
+              </div>
             </div>
           </div>
         </div>
       </div>
+      {/* FAQ 3 */}
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
-          <div className='_title_1uqbn_9'>
-          Нужен ли опыт для торговли?
-          <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
+          <div
+            className='_title_1uqbn_9'
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveFaq(activeFaq === 3 ? null : 3)}
+          >
+            Нужен ли опыт для торговли?
+            <img src={plus} alt="plus" className={`_plusImg_1uqbn_22${activeFaq === 3 ? ' _plusOpen_1uqbn_30' : ''}`} />
           </div>
-          <div className='_expanderContainer_1uqbn_47'>
-            <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>Наша платформа разработана как для новичков, так и для профессионалов, поэтому начать может каждый. </div>
+          <div className={`_expanderContainer_1uqbn_47${activeFaq === 3 ? ' _open_1uqbn_54' : ''}`}>
+            <div className={`_expander_1uqbn_47${activeFaq === 3 ? ' _open_1uqbn_54' : ''}`}>
+              <div className='_description_1uqbn_34'>
+                Наша платформа разработана как для новичков, так и для профессионалов, поэтому начать может каждый.
+              </div>
             </div>
           </div>
         </div>
       </div>
+      {/* FAQ 4 */}
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
-          <div className='_title_1uqbn_9'>
-          Что такое торговые сигналы и как ими пользоваться?
-          <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
+          <div
+            className='_title_1uqbn_9'
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveFaq(activeFaq === 4 ? null : 4)}
+          >
+            Что такое торговые сигналы и как ими пользоваться?
+            <img src={plus} alt="plus" className={`_plusImg_1uqbn_22${activeFaq === 4 ? ' _plusOpen_1uqbn_30' : ''}`} />
           </div>
-          <div className='_expanderContainer_1uqbn_47'>
-            <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>Торговые сигналы — это рекомендации, которые помогают принимать решения о покупке или продаже активов на основе анализа рынка. Используйте их для повышения точности сделок. </div>
+          <div className={`_expanderContainer_1uqbn_47${activeFaq === 4 ? ' _open_1uqbn_54' : ''}`}>
+            <div className={`_expander_1uqbn_47${activeFaq === 4 ? ' _open_1uqbn_54' : ''}`}>
+              <div className='_description_1uqbn_34'>
+                Торговые сигналы — это рекомендации, которые помогают принимать решения о покупке или продаже активов на основе анализа рынка. Используйте их для повышения точности сделок.
+              </div>
             </div>
           </div>
         </div>
       </div>
+      {/* FAQ 5 */}
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
-          <div className='_title_1uqbn_9'>
-          Какие методы пополнения счёта доступны?
-          <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
+          <div
+            className='_title_1uqbn_9'
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveFaq(activeFaq === 5 ? null : 5)}
+          >
+            Какие методы пополнения счёта доступны?
+            <img src={plus} alt="plus" className={`_plusImg_1uqbn_22${activeFaq === 5 ? ' _plusOpen_1uqbn_30' : ''}`} />
           </div>
-          <div className='_expanderContainer_1uqbn_47'>
-            <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>Пополнение счёта осуществляется на стороне платформы Pocket Option. </div>
+          <div className={`_expanderContainer_1uqbn_47${activeFaq === 5 ? ' _open_1uqbn_54' : ''}`}>
+            <div className={`_expander_1uqbn_47${activeFaq === 5 ? ' _open_1uqbn_54' : ''}`}>
+              <div className='_description_1uqbn_34'>
+                Пополнение счёта осуществляется на стороне платформы Pocket Option.
+              </div>
             </div>
           </div>
         </div>
       </div>
+      {/* FAQ 6 */}
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
-          <div className='_title_1uqbn_9'>
-          Есть ли поддержка 24/7?
-          <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
+          <div
+            className='_title_1uqbn_9'
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveFaq(activeFaq === 6 ? null : 6)}
+          >
+            Есть ли поддержка 24/7?
+            <img src={plus} alt="plus" className={`_plusImg_1uqbn_22${activeFaq === 6 ? ' _plusOpen_1uqbn_30' : ''}`} />
           </div>
-          <div className='_expanderContainer_1uqbn_47'>
-            <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>Да, если у вас возникнут вопросы, вы можете обратиться к нашей команде через Telegram. 
-                <a href="">ссылка ебать</a>
+          <div className={`_expanderContainer_1uqbn_47${activeFaq === 6 ? ' _open_1uqbn_54' : ''}`}>
+            <div className={`_expander_1uqbn_47${activeFaq === 6 ? ' _open_1uqbn_54' : ''}`}>
+              <div className='_description_1uqbn_34'>
+                Да, если у вас возникнут вопросы, вы можете обратиться к нашей команде через Telegram.
+                <a href=""></a>
               </div>
             </div>
           </div>

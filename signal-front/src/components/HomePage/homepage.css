@@ -3158,7 +3158,6 @@ legend {
   ._container_hq2vv_8 {
     padding-bottom: 150px;
     padding: 40px 24px;
-    max-width: 1440px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -3173,4 +3172,21 @@ legend {
     ._container_hq2vv_8 {
       max-width: 2370px;
     }
+  }
+  ._expanderContainer_1uqbn_47 {
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    transition: grid-template-rows 0.2s;
+  }
+  ._expanderContainer_1uqbn_47._open_1uqbn_54 {
+    grid-template-rows: 1fr;
+  }
+  ._expander_1uqbn_47 {
+    min-height: 0;
+    visibility: hidden;
+    transition: visibility 0.2s;
+  }
+  ._expander_1uqbn_47._open_1uqbn_54 {
+    visibility: visible;
   }
