@@ -5,6 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import './account.css';
 
 const Account = () => {
+
+    const [email, setEmail] = useState(''); 
+    const [id, setId] = useState(''); 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -37,7 +42,7 @@ const Account = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`, // Передаём токен
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`, 
                 },
                 body: JSON.stringify({ email }),
             });
@@ -54,8 +59,8 @@ const Account = () => {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('token'); // Удаляем токен
-        navigate('/login'); // Перенаправляем на страницу входа
+        localStorage.removeItem('token'); 
+        navigate('/login'); 
     };
 
 
@@ -107,11 +112,11 @@ const Account = () => {
                                     </button>
                                 </div>
                             </div>
+                            <button className='_exitButton_ptqq2_106' onClick={handleLogout}>
+                                <img src={exit} alt="exit" />
+                            </button>
                         </div>
                     </div>
-                    <button className='_exitButton_ptqq2_106' onClick={handleLogout}>
-                        <img src={exit} alt="exit" />
-                    </button>
                 </div>
             </section>
         </>

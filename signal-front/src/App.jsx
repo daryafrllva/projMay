@@ -1,4 +1,5 @@
-import React, { useState, Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
+import { ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
@@ -23,6 +24,7 @@ import Instruction from './components/InstructionPage/InstructionPage';
 import BinaryOptionsArticle from './components/BinaryOptionsArticle/BinaryOptionsArticle';
 import TwoStat from "./components/BinaryOptionsArticle/TwoStat.jsx";
 
+import Signal from "./components/Profile/signal";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -33,22 +35,33 @@ const App = () => {
     i18n.changeLanguage(lng);
   };
 
+  const [isLoading, setIsLoading] = useState(true);
 
-  const noHeaderRoutes = ['/login', '/register', '/confirm-email', '/forgot-password'];
+  useEffect(() => {
+    const fetchData = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  const noHeaderRoutes = ['/login', '/register', '/confirm-email', '/forgot-password', '/activated-email','/enter-id'];
 
   return (
     <div className="app">
-      <Loader>
-        {!noHeaderRoutes.includes(location.pathname) && (
-            <>
-              {isAuthenticated ? <HederAuth /> : <Header />}
-              <div className="language-switcher">
-                <button onClick={() => changeLanguage('ru')}>RU</button>
-                <button onClick={() => changeLanguage('en')}>EN</button>
-              </div>
-            </>
-        )}
+      <ToastContainer />
+      <Loader isLoading={isLoading}>
         <Suspense fallback={<div>Loading...</div>}>
+          {!noHeaderRoutes.includes(location.pathname) && (
+              <>
+                {isAuthenticated ? <HederAuth /> : <Header />}
+                <div className="language-switcher">
+                  <button onClick={() => changeLanguage('ru')}>RU</button>
+                  <button onClick={() => changeLanguage('en')}>EN</button>
+                </div>
+              </>
+          )}
         <Routes>
           <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/register" element={<Register />} />
@@ -103,6 +116,14 @@ const App = () => {
             <>
               <main className="main-content">
                 <Instruction />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/signal" element={
+            <>
+              <main className="main-content">
+                <Signal />
               </main>
               <Footer />
             </>

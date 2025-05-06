@@ -32,10 +32,10 @@ const Homepage = ({ isAuthenticated }) => {
   const announcementText = "AI BOSST USA";
   const starIcon = <img src={star} alt="star" className="marquee-star" />;
 
-  const [onlineUsers, setOnlineUsers] = useState(0);
-  const [successfulSignals, setSuccessfulSignals] = useState(0);
-  const [unsuccessfulSignals, setUnsuccessfulSignals] = useState(0);
-
+  const onlineUsers = 129;
+  const successfulSignals = 468;
+  const unsuccessfulSignals = 72;
+  
   useEffect(() => {
     const fetchStats = async () => {
       try {
@@ -58,8 +58,7 @@ const Homepage = ({ isAuthenticated }) => {
 
     fetchStats();
   }, []);
-  
-
+  const [activeFaq, setActiveFaq] = useState(null);
   return (
     <>
     <div className="_mainWrapper_17x2r_1">
@@ -296,85 +295,118 @@ const Homepage = ({ isAuthenticated }) => {
 
 <section className='_wrapper_hq2vv_1'>
   <div className='_container_hq2vv_8 _wrapper_7q4q7_1'>
-    <h2 className='_title_7q4q7_26'>{t('home.faq.title')}</h2>
+    <h2 className='_title_7q4q7_26'>FAQ</h2>
     <img src={bitc} alt="bitcoin" className='_bitcoin_7q4q7_53' />
     <img src={gold} alt="gold" className='_gold_7q4q7_54'/>
     <div className='_cards_7q4q7_9'>
+      {/* FAQ 1 */}
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
-          <div className='_title_1uqbn_9'>
-            {t('home.faq.questions.0.question')}
-          <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
+          <div
+            className='_title_1uqbn_9'
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveFaq(activeFaq === 1 ? null : 1)}
+          >
+              {t('home.faq.questions.0.question')}
+            <img src={plus} alt="plus" className={`_plusImg_1uqbn_22${activeFaq === 1 ? ' _plusOpen_1uqbn_30' : ''}`} />
           </div>
-          <div className='_expanderContainer_1uqbn_47'>
-            <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>{t('home.faq.questions.0.answer')} </div>
+          <div className={`_expanderContainer_1uqbn_47${activeFaq === 1 ? ' _open_1uqbn_54' : ''}`}>
+            <div className={`_expander_1uqbn_47${activeFaq === 1 ? ' _open_1uqbn_54' : ''}`}>
+              <div className='_description_1uqbn_34'>
+                  {t('home.faq.questions.0.answer')}              </div>
             </div>
           </div>
         </div>
       </div>
+      {/* FAQ 2 */}
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
-          <div className='_title_1uqbn_9'>
-            {t('home.faq.questions.1.question')}
-          <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
-          </div>
-          <div className='_expanderContainer_1uqbn_47'>
-            <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>{t('home.faq.questions.1.answer')}</div>
+            <div
+                className='_title_1uqbn_9'
+                style={{ cursor: 'pointer' }}
+                onClick={() => setActiveFaq(activeFaq === 2 ? null : 2)}
+            >
+                {t('home.faq.questions.1.question')}
+                <img src={plus} alt="plus" className={`_plusImg_1uqbn_22${activeFaq === 2 ? ' _plusOpen_1uqbn_30' : ''}`} />
+            </div>
+          <div className={`_expanderContainer_1uqbn_47${activeFaq === 2 ? ' _open_1uqbn_54' : ''}`}>
+            <div className={`_expander_1uqbn_47${activeFaq === 2 ? ' _open_1uqbn_54' : ''}`}>
+              <div className='_description_1uqbn_34'>
+                  {t('home.faq.questions.1.answer')}              </div>
             </div>
           </div>
         </div>
       </div>
+      {/* FAQ 3 */}
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
-          <div className='_title_1uqbn_9'>
-            {t('home.faq.questions.2.question')}
-          <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
+          <div
+            className='_title_1uqbn_9'
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveFaq(activeFaq === 3 ? null : 3)}
+          >
+              {t('home.faq.questions.2.question')}            <img src={plus} alt="plus" className={`_plusImg_1uqbn_22${activeFaq === 3 ? ' _plusOpen_1uqbn_30' : ''}`} />
           </div>
-          <div className='_expanderContainer_1uqbn_47'>
-            <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>{t('home.faq.questions.2.answer')} </div>
+          <div className={`_expanderContainer_1uqbn_47${activeFaq === 3 ? ' _open_1uqbn_54' : ''}`}>
+            <div className={`_expander_1uqbn_47${activeFaq === 3 ? ' _open_1uqbn_54' : ''}`}>
+              <div className='_description_1uqbn_34'>
+                  {t('home.faq.questions.2.answer')}               </div>
             </div>
           </div>
         </div>
       </div>
+      {/* FAQ 4 */}
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
-          <div className='_title_1uqbn_9'>
-            {t('home.faq.questions.3.question')}
-          <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
+          <div
+            className='_title_1uqbn_9'
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveFaq(activeFaq === 4 ? null : 4)}
+          >
+              {t('home.faq.questions.3.question')}            <img src={plus} alt="plus" className={`_plusImg_1uqbn_22${activeFaq === 4 ? ' _plusOpen_1uqbn_30' : ''}`} />
           </div>
-          <div className='_expanderContainer_1uqbn_47'>
-            <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>{t('home.faq.questions.3.answer')}</div>
+          <div className={`_expanderContainer_1uqbn_47${activeFaq === 4 ? ' _open_1uqbn_54' : ''}`}>
+            <div className={`_expander_1uqbn_47${activeFaq === 4 ? ' _open_1uqbn_54' : ''}`}>
+              <div className='_description_1uqbn_34'>
+                  {t('home.faq.questions.3.answer')}              </div>
             </div>
           </div>
         </div>
       </div>
+      {/* FAQ 5 */}
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
-          <div className='_title_1uqbn_9'>
-            {t('home.faq.questions.4.question')}
-          <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
+          <div
+            className='_title_1uqbn_9'
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveFaq(activeFaq === 5 ? null : 5)}
+          >
+              {t('home.faq.questions.4.question')}
+            <img src={plus} alt="plus" className={`_plusImg_1uqbn_22${activeFaq === 5 ? ' _plusOpen_1uqbn_30' : ''}`} />
           </div>
-          <div className='_expanderContainer_1uqbn_47'>
-            <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>{t('home.faq.questions.4.answer')}</div>
+          <div className={`_expanderContainer_1uqbn_47${activeFaq === 5 ? ' _open_1uqbn_54' : ''}`}>
+            <div className={`_expander_1uqbn_47${activeFaq === 5 ? ' _open_1uqbn_54' : ''}`}>
+              <div className='_description_1uqbn_34'>
+                  {t('home.faq.questions.4.answer')}              </div>
             </div>
           </div>
         </div>
       </div>
+      {/* FAQ 6 */}
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
-          <div className='_title_1uqbn_9'>
-            {t('home.faq.questions.5.question')}
-          <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
+          <div
+            className='_title_1uqbn_9'
+            style={{ cursor: 'pointer' }}
+            onClick={() => setActiveFaq(activeFaq === 6 ? null : 6)}
+          >
+              {t('home.faq.questions.5.question')}
+            <img src={plus} alt="plus" className={`_plusImg_1uqbn_22${activeFaq === 6 ? ' _plusOpen_1uqbn_30' : ''}`} />
           </div>
-          <div className='_expanderContainer_1uqbn_47'>
-            <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>{t('home.faq.questions.5.answer')}
-                <a href="">ссылка ебать</a>
+          <div className={`_expanderContainer_1uqbn_47${activeFaq === 6 ? ' _open_1uqbn_54' : ''}`}>
+            <div className={`_expander_1uqbn_47${activeFaq === 6 ? ' _open_1uqbn_54' : ''}`}>
+              <div className='_description_1uqbn_34'>
+                  {t('home.faq.questions.5.answer')}                <a href=""></a>
               </div>
             </div>
           </div>
