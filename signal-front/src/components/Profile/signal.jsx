@@ -25,6 +25,8 @@ import AIB2 from '../../assets/svg/AIB2.svg';
 import IND from '../../assets/svg/IND.svg';
 import PLUSA from '../../assets/svg/PLUSA.svg';
 import './signal.css';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const currencyIcons = { AUD, CAD, CHF, EUR, GBP, JPY, USD };
 const currencyPairs = ['EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD', 'USDCHF'];
@@ -49,6 +51,7 @@ const generateRandomPair = () => {
 const Signal = () => {
   const [isWeekend, setIsWeekend] = useState(false);
   const [isBalanceChecked, setIsBalanceChecked] = useState(false);
+  const [balance, setBalance] = useState(null);
   const [isAnalyticsModalOpen, setIsAnalyticsModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [expandedSections, setExpandedSections] = useState({});
@@ -113,10 +116,43 @@ const Signal = () => {
     };
   }, []);
 
+  // Проверка баланса через backend
+  useEffect(() => {
+    const checkBalance = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/check-client', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setIsBalanceChecked(true);
+          setBalance(data.balance);
+          if (data.balance < 10) {
+            toast.error('На счете недостаточно средств для сигналов. Минимальная сумма — $10.');
+          }
+        } else {
+          setIsBalanceChecked(true);
+          setBalance(0);
+          toast.error('Ошибка при проверке баланса. Попробуйте позже.');
+        }
+      } catch (error) {
+        setIsBalanceChecked(true);
+        setBalance(0);
+        toast.error('Ошибка соединения с сервером.');
+      }
+    };
+
+    checkBalance();
+  }, []);
+
   useEffect(() => {
     const today = new Date().getDay();
     setIsWeekend(today === 0 || today === 6);
-    setIsBalanceChecked(true);
   }, []);
 
   const toggleModal = () => {
@@ -140,7 +176,6 @@ const Signal = () => {
 
   const handleTimeSelection = (time) => {
     setSelectedTime(time);
-    // Преобразуем '3 MIN' -> 180, '5 MIN' -> 300 и т.д.
     const minutes = parseInt(time);
     setTimerValue(minutes * 60);
   };
@@ -157,7 +192,7 @@ const Signal = () => {
       const priceData = await priceResponse.json();
       setStartPrice(parseFloat(priceData.data.amount).toFixed(4));
       setShowChart(true);
-      setTimeLeft(timerValue); // запуск таймера при показе графика
+      setTimeLeft(timerValue);
       setResult(null);
       setEndPrice(null);
       setDirection(Math.random() < 0.5 ? 'up' : 'down');
@@ -215,7 +250,6 @@ const Signal = () => {
     fetchRandomPairAndPrice();
   };
 
-  // Сброс сигнала: возвращаем к выбору AI и таймера
   const handleResetSignal = () => {
     setShowChart(false);
     setSelectedPair(null);
@@ -244,7 +278,7 @@ const Signal = () => {
               </p>
               <p className='_currentBalance_1wuj9_68'>
                 Ваш текущий баланс:
-                <span>тут баланс</span>
+                <span>{balance !== null ? `$${balance}` : 'загрузка...'}</span>
               </p>
               <div className='_info_1wuj9_87' onClick={toggleModal}>
                 ❔ Отвечаем на ваши вопросы
@@ -256,8 +290,6 @@ const Signal = () => {
             </button>
           </div>
         </div>
-
-        {/* Модальное окно */}
         {isModalOpen && (
           <div className='_modal_b50nl_1'>
             <div className='_modalContent_b50nl_28'>
@@ -369,12 +401,12 @@ const Signal = () => {
             </div>
           </div>
         )}
+        <ToastContainer />
       </section>
     );
   }
 
   if (showChart && selectedPair) {
-    // Форматируем таймер в mm:ss
     const formatTime = (seconds) => {
       const m = Math.floor(seconds / 60).toString().padStart(2, '0');
       const s = (seconds % 60).toString().padStart(2, '0');
@@ -528,7 +560,6 @@ const Signal = () => {
                 </div>
               </div>
               <p className='_timeText_qnld5_22'>{timeLeft !== null ? formatTime(timeLeft) : ''}</p>
-              {/* Результат и цены после таймера */}
               {result && (
                 <div style={{ textAlign: 'center', margin: '40px 0 24px 0' }}>
                   <span
@@ -609,58 +640,61 @@ const Signal = () => {
   }
 
   return (
-    <section className='_wrapper_hq2vv_1'>
-      <div className='_container_hq2vv_8 _wrapper_18eu1_1'>
-        <div className='_signalVideo_1yk8r_1'>
-          <video src={loadingbot} autoPlay muted loop className='_video_1yk8r_12'></video>
-        </div>
-        <div className='_wrapper_1t4y8_1'>
-          <h1 className='_mainTitle_1t4y8_6'>Настройки сигнала</h1>
-          <div className='_listWrapper_1t4y8_12'>
-            <h2>AI:</h2>
-            <div className='_list_1t4y8_12'>
-              {[{ name: 'ChatGPT 4o', icon: gpt }, { name: 'AI BOOST USA v1', icon: AIB }, { name: 'AI BOOST USA v2', icon: AIB2 }, { name: 'Indicators + ChatGPT 3.5', icon: IND }, { name: 'AI BOOST USA Trade PLUS', icon: PLUSA }].map((ai, index) => (
-                <button
-                  key={index}
-                  className={selectedAI === ai.name ? '_selected_1t4y8_46' : ''}
-                  onClick={() => handleAISelection(ai.name)}
-                >
-                  <img src={ai.icon} alt={ai.name} style={{ width: '15px' }} />
-                  {ai.name}
-                </button>
-              ))}
+    <>
+      <section className='_wrapper_hq2vv_1'>
+        <div className='_container_hq2vv_8 _wrapper_18eu1_1'>
+          <div className='_signalVideo_1yk8r_1'>
+            <video src={loadingbot} autoPlay muted loop className='_video_1yk8r_12'></video>
+          </div>
+          <div className='_wrapper_1t4y8_1'>
+            <h1 className='_mainTitle_1t4y8_6'>Настройки сигнала</h1>
+            <div className='_listWrapper_1t4y8_12'>
+              <h2>AI:</h2>
+              <div className='_list_1t4y8_12'>
+                {[{ name: 'ChatGPT 4o', icon: gpt }, { name: 'AI BOOST USA v1', icon: AIB }, { name: 'AI BOOST USA v2', icon: AIB2 }, { name: 'Indicators + ChatGPT 3.5', icon: IND }, { name: 'AI BOOST USA Trade PLUS', icon: PLUSA }].map((ai, index) => (
+                  <button
+                    key={index}
+                    className={selectedAI === ai.name ? '_selected_1t4y8_46' : ''}
+                    onClick={() => handleAISelection(ai.name)}
+                  >
+                    <img src={ai.icon} alt={ai.name} style={{ width: '15px' }} />
+                    {ai.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className='_listWrapper_1t4y8_12'>
+              <h2>TIME:</h2>
+              <div className='_list_1t4y8_12'>
+                {['3 MIN', '5 MIN', '7 MIN', '10 MIN'].map((time, index) => (
+                  <button
+                    key={index}
+                    className={selectedTime === time ? '_selected_1t4y8_46' : ''}
+                    onClick={() => handleTimeSelection(time)}
+                  >
+                    {time}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
-          <div className='_listWrapper_1t4y8_12'>
-            <h2>TIME:</h2>
-            <div className='_list_1t4y8_12'>
-              {['3 MIN', '5 MIN', '7 MIN', '10 MIN'].map((time, index) => (
-                <button
-                  key={index}
-                  className={selectedTime === time ? '_selected_1t4y8_46' : ''}
-                  onClick={() => handleTimeSelection(time)}
-                >
-                  {time}
-                </button>
-              ))}
+          <div className='_desktopPendingWrapper_1yk8r_400'>
+            <div className='_getContainer_1yk8r_16'>
+              <button
+                type='button'
+                className='_button_13fxj_1 _action_13fxj_13'
+                onClick={handleNewSignal}
+                disabled={!selectedAI || !selectedTime}
+              >
+                <span>Получить новый сигнал</span>
+                <img src={click} alt="click" />
+              </button>
             </div>
           </div>
         </div>
-        <div className='_desktopPendingWrapper_1yk8r_400'>
-          <div className='_getContainer_1yk8r_16'>
-            <button
-              type='button'
-              className='_button_13fxj_1 _action_13fxj_13'
-              onClick={handleNewSignal}
-              disabled={!selectedAI || !selectedTime}
-            >
-              <span>Получить новый сигнал</span>
-              <img src={click} alt="click" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
+        <ToastContainer />
+      </section>
+    </>
   );
 };
 

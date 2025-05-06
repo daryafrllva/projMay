@@ -13,6 +13,7 @@ const EnterId = () => {
 
     const [id, setId] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     const handleOpenModal = (modalId) => {
         setActiveModal(modalId);
@@ -65,30 +66,32 @@ const EnterId = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+        setErrorMessage('');
+        setSuccessMessage('');
+
         if (!id) {
             setErrorMessage('ID не может быть пустым.');
             return;
         }
-    
+
         try {
-            const response = await fetch('https://your-backend-url.com/verify-id', {
+            const response = await fetch('http://localhost:8000/api/check-client', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json',
                 },
                 body: JSON.stringify({ id }),
             });
-    
+
             if (response.ok) {
                 const data = await response.json();
-                alert('ID успешно проверен!');
+                setSuccessMessage(data.message || 'ID успешно проверен!');
             } else {
                 const errorData = await response.json();
                 setErrorMessage(errorData.message || 'Ошибка проверки ID.');
             }
         } catch (error) {
-            console.error('Ошибка:', error);
             setErrorMessage('Произошла ошибка. Попробуйте снова.');
         }
     };
@@ -136,6 +139,7 @@ const EnterId = () => {
                                 </div>
                             </div>
                             {errorMessage && <p className='_errorText_yllvt_93'>{errorMessage}</p>}
+                            {successMessage && <p className='_successText_yllvt_93'>{successMessage}</p>}
                             <button type="submit" className='_button_13fxj_1 _button_yllvt_69 _action_13fxj_13'>
                                 <span>Создать аккаунт</span>
                                 <img src={click} alt="click" />

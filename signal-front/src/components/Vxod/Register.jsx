@@ -34,10 +34,6 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!validatePassword(formData.password)) {
-            toast.error('Пароль должен содержать минимум 8 символов, 1 цифру и 1 специальный символ.');
-            return;
-        }
 
         if (formData.password !== formData.confirmPassword) {
             toast.error('Пароли не совпадают');
@@ -45,7 +41,7 @@ const Register = () => {
         }
 
         try {
-            const response = await fetch('https://your-backend-url.com/register', {
+            const response = await fetch('http://localhost:8000/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
