@@ -24,15 +24,18 @@ import safe from '../../assets/png/safe.png';
 import podium from '../../assets/png/podium.png';
 import herovideo from '../../assets/video/hero-video.mp4';
 import mock from '../../assets/video/mock.mp4';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
-const Homepage = () => {
+const Homepage = ({ isAuthenticated }) => {
+  const { t } = useTranslation();
   const announcementText = "AI BOSST USA";
   const starIcon = <img src={star} alt="star" className="marquee-star" />;
 
   const [onlineUsers, setOnlineUsers] = useState(0);
   const [successfulSignals, setSuccessfulSignals] = useState(0);
   const [unsuccessfulSignals, setUnsuccessfulSignals] = useState(0);
-  
+
   useEffect(() => {
     const fetchStats = async () => {
       try {
@@ -67,11 +70,11 @@ const Homepage = () => {
         <div className="_heroWrapper_17x2r_46">
           <div className="_text_17x2r_124">
             <h1 className='_title_17x2r_51'>
-              <span className="_selected_17x2r_60">AI BOSST USA </span>
-              PLATFORM
+              <span className="_selected_17x2r_60">AI BOOST USA </span>
+              {t('home.title').replace('AI BOOST USA', '')}
             </h1>
             <h2 className='_description_17x2r_71'>
-            Современные инструменты откроют путь к успеху. Мы созданы для того, чтобы сделать трейдинг доступным, понятным и выгодным для всех. Получайте бесплатные сигналы на бинарные опционы с помощью нашей платформы.
+              {t('home.description')}
             </h2>
             <div className="_bitcoin_17x2r_120">
               <img src={bitcoin} alt="bitcoin" />
@@ -84,27 +87,34 @@ const Homepage = () => {
                   <p>{onlineUsers}</p>
                   <img src={online} alt="monitor"/>
                 </div>
-                <p className='_text_suqtr_9'>Онлайн посетители</p>
+                  <p className='_text_suqtr_9'>{t('home.stats.onlineUsers')}</p>
                 </div>
                 <div className="_card_suqtr_1">
                 <div className='_stats_suqtr_17'>
                   <p>{successfulSignals}</p>
                   <img src={success} alt="green shield"/>
                 </div>
-                <p className='_text_suqtr_9'>Успешные сигналы</p>
+                <p className='_text_suqtr_9'>{t('home.stats.successfulSignals')}</p>
                 </div>
                 <div className="_card_suqtr_1">
                 <div className='_stats_suqtr_17'>
                   <p>{unsuccessfulSignals}</p>
                   <img src={loss} alt="red shield"/>
                 </div>
-                <p className='_text_suqtr_9'>Неудачные сигналы</p>
+                <p className='_text_suqtr_9'>{t('home.stats.unsuccessfulSignals')}</p>
                 </div>
               </div>
-              <a href="/register" className='_button_13fxj_1 _button_17x2r_81 _action_13fxj_13'>
-                <span>Регистрация</span>
-                <img src={click} alt="coursor" />
-              </a>
+              {isAuthenticated ? (
+                  <a href="/register" className='_button_13fxj_1 _button_17x2r_81 _action_13fxj_13'>
+                    <span>{t('home.cta.getSignal')}</span>
+                    <img src={click} alt="coursor" />
+                  </a>
+              ) : (
+                  <a href="/register" className='_button_13fxj_1 _button_17x2r_81 _action_13fxj_13'>
+                    <span>{t('home.cta.register')}</span>
+                    <img src={click} alt="coursor" />
+                  </a>
+              )}
         </div>
       </div>
         </div>
@@ -154,7 +164,7 @@ const Homepage = () => {
     <div className='_container_hq2vv_8 _wrapper_1mffy_1'>
       <div className='_container_hq2vv_8 _wrapper_1mffy_1'>
         <div className='_wrapper_1apmi_1'>
-          <h2 className='_title_1apmi_7'>Что мы предлагаем?</h2>
+          <h2 className='_title_1apmi_7'>{t('home.offer.title')}</h2>
         </div>
       </div>
       <img src={safe} alt="safe" className='_safeImg_1mffy_34 _left_1mffy_54'/>
@@ -168,8 +178,8 @@ const Homepage = () => {
                   <img src={hand1} alt="hand1" className='_image_xjhya_15'/>
                 </div>
                 <div className='_bottom_xjhya_19'>
-                  <h3 className='_title_xjhya_24'>Точные торговые сигналы</h3>
-                  <p className='_text_xjhya_32'>Получайте актуальные сигналы для обоснованных решений в режиме реального времени.</p>
+                  <h3 className='_title_xjhya_24'>{t('home.offer.features.0.title')}</h3>
+                  <p className='_text_xjhya_32'>{t('home.offer.features.0.description')}</p>
                 </div>
               </div>
             </div>
@@ -179,8 +189,8 @@ const Homepage = () => {
                   <img src={hand2} alt="hand2" className='_image_xjhya_15'/>
                 </div>
                 <div className='_bottom_xjhya_19'>
-                  <h3 className='_title_xjhya_24'>Быстрый старт</h3>
-                  <p className='_text_xjhya_32'>Мгновенно начните торговлю — регистрация занимает всего несколько минут, и вы готовы к рынку.</p>
+                  <h3 className='_title_xjhya_24'>{t('home.offer.features.1.title')}</h3>
+                  <p className='_text_xjhya_32'>{t('home.offer.features.1.description')}</p>
                 </div>
               </div>
             </div>
@@ -190,8 +200,8 @@ const Homepage = () => {
                   <img src={hand3} alt="hand3" className='_image_xjhya_15'/>
                 </div>
                 <div className='_bottom_xjhya_19'>
-                  <h3 className='_title_xjhya_24'>Интуитивный интерфейс</h3>
-                  <p className='_text_xjhya_32'>Удобный интерфейс для легкого доступа и быстрых операций с любого устройства.</p>
+                  <h3 className='_title_xjhya_24'>{t('home.offer.features.2.title')}</h3>
+                  <p className='_text_xjhya_32'>{t('home.offer.features.2.description')}</p>
                 </div>
               </div>
             </div>
@@ -204,7 +214,7 @@ const Homepage = () => {
 
 <section className="_wrapper_hq2vv_1 _wrapper_1jpyc_1">
   <div className='_wrapper_1apmi_1'>
-    <h2 className='_title_1apmi_7'>Как это работает?</h2>
+    <h2 className='_title_1apmi_7'>{t('home.howItWorks.title')}</h2>
   </div>
   <div className='_videoWrapper_1jpyc_19'>
     <video src={mock} className='_video_1jpyc_10' autoPlay muted loop></video>
@@ -217,22 +227,22 @@ const Homepage = () => {
     <div className='_wrapper_t1n74_1'>
       <p className='_position_t1n74_23'>1</p>
       <div>
-        <p className='_title_t1n74_40'>Регистрация</p>
-        <p className='_text_t1n74_48'>Зарегистрируйтесь на нашей платформе и начните использовать все её возможности.</p>
+        <p className='_title_t1n74_40'>{t('home.howItWorks.steps.0.title')}</p>
+        <p className='_text_t1n74_48'>{t('home.howItWorks.steps.0.description')}</p>
       </div>
     </div>
     <div className='_wrapper_t1n74_1'>
       <p className='_position_t1n74_23'>2</p>
       <div>
-        <p className='_title_t1n74_40'>Пополнение счёта</p>
-        <p className='_text_t1n74_48'>Используйте надёжные методы для быстрого пополнения счёта на брокерской платформе.</p>
+        <p className='_title_t1n74_40'>{t('home.howItWorks.steps.1.title')}</p>
+        <p className='_text_t1n74_48'>{t('home.howItWorks.steps.1.description')}</p>
       </div>
     </div>
     <div className='_wrapper_t1n74_1 _active_t1n74_16'>
       <p className='_position_t1n74_23'>3</p>
       <div>
-        <p className='_title_t1n74_40'>Начинайте торговлю</p>
-        <p className='_text_t1n74_48'>Используйте мощные инструменты нашей платформы для успешной торговли.</p>
+        <p className='_title_t1n74_40'>{t('home.howItWorks.steps.2.title')}</p>
+        <p className='_text_t1n74_48'>{t('home.howItWorks.steps.2.description')}</p>
       </div>
     </div>
   </div>
@@ -241,7 +251,7 @@ const Homepage = () => {
 <section className='_wrapper_hq2vv_1 _wrapper_1d2tw_1'>
         <div className='_container_hq2vv_8 _container_1d2tw_2'>
           <div className='_wrapper_1apmi_1'>
-            <h2 className='_title_1apmi_7'>Инструменты успеха</h2>
+            <h2 className='_title_1apmi_7'>{t('home.tools.title')}</h2>
           </div>
           <div>
             <div className='_cardContainer_ulq9z_1'>
@@ -251,8 +261,8 @@ const Homepage = () => {
                   <img src={chart} alt="chart" className='_img_ulq9z_40'/>
                 </div>
                 <div>
-                  <h3 className='_title_ulq9z_52'>Аналитические графики</h3>
-                  <p className='_text_ulq9z_57'>Данные создают тренды, а графики — их истории. Представьте инструмент, раскрывающий потенциал рынка через удобную и понятную визуализацию, позволяя вам действовать уверенно и быстро…</p>
+                  <h3 className='_title_ulq9z_52'>{t('home.tools.items.0.title')}</h3>
+                  <p className='_text_ulq9z_57'>{t('home.tools.items.0.description')}</p>
                 </div>
               </div>
             </div>
@@ -263,8 +273,8 @@ const Homepage = () => {
                   <img src={twolmg} alt="chart" className='_img_ulq9z_40'/>
                 </div>
                 <div>
-                  <h3 className='_title_ulq9z_52'>Торговые сигналы</h3>
-                  <p className='_text_ulq9z_57'>Чёткие сигналы в вихре рыночных изменений. Представьте источник, который помогает принимать важные решения, опираясь на проверенные данные, а не на интуицию. Найдите идеальные моменты для действий.</p>
+                  <h3 className='_title_ulq9z_52'>{t('home.tools.items.1.title')}</h3>
+                  <p className='_text_ulq9z_57'>{t('home.tools.items.1.description')}</p>
                 </div>
               </div>
             </div>
@@ -275,8 +285,8 @@ const Homepage = () => {
                   <img src={threelmg} alt="chart" className='_img_ulq9z_40'/>
                 </div>
                 <div>
-                  <h3 className='_title_ulq9z_52'>Современный подход</h3>
-                  <p className='_text_ulq9z_57'>Искусственный интеллект меняет правила игры. Представьте систему, которая анализирует рынок в реальном времени, распознаёт скрытые закономерности и предоставляет точные торговые сигналы. Меньше догадок – больше обоснованных решений.</p>
+                  <h3 className='_title_ulq9z_52'>{t('home.tools.items.2.title')}</h3>
+                  <p className='_text_ulq9z_57'> {t('home.tools.items.2.description')}</p>
                 </div>
               </div>
             </div>
@@ -286,19 +296,19 @@ const Homepage = () => {
 
 <section className='_wrapper_hq2vv_1'>
   <div className='_container_hq2vv_8 _wrapper_7q4q7_1'>
-    <h2 className='_title_7q4q7_26'>FAQ</h2>
+    <h2 className='_title_7q4q7_26'>{t('home.faq.title')}</h2>
     <img src={bitc} alt="bitcoin" className='_bitcoin_7q4q7_53' />
     <img src={gold} alt="gold" className='_gold_7q4q7_54'/>
     <div className='_cards_7q4q7_9'>
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
           <div className='_title_1uqbn_9'>
-          Как начать торговлю на вашей платформе?
+            {t('home.faq.questions.0.question')}
           <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
           </div>
           <div className='_expanderContainer_1uqbn_47'>
             <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>Чтобы начать торговлю, зарегистрируйте аккаунт и пополните баланс у брокера Pocket Option. После этого вы готовы сделать свой первый шаг в трейдинге. </div>
+              <div className='_description_1uqbn_34'>{t('home.faq.questions.0.answer')} </div>
             </div>
           </div>
         </div>
@@ -306,12 +316,12 @@ const Homepage = () => {
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
           <div className='_title_1uqbn_9'>
-          Нужно ли платить за сигналы?
+            {t('home.faq.questions.1.question')}
           <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
           </div>
           <div className='_expanderContainer_1uqbn_47'>
             <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>Нет! Сигналы от AI BOOST USA абсолютно бесплатные, но чтобы получить доступ, нужно быть нашим рефералом на Pocket Option и пополнить счёт на $10. </div>
+              <div className='_description_1uqbn_34'>{t('home.faq.questions.1.answer')}</div>
             </div>
           </div>
         </div>
@@ -319,12 +329,12 @@ const Homepage = () => {
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
           <div className='_title_1uqbn_9'>
-          Нужен ли опыт для торговли?
+            {t('home.faq.questions.2.question')}
           <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
           </div>
           <div className='_expanderContainer_1uqbn_47'>
             <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>Наша платформа разработана как для новичков, так и для профессионалов, поэтому начать может каждый. </div>
+              <div className='_description_1uqbn_34'>{t('home.faq.questions.2.answer')} </div>
             </div>
           </div>
         </div>
@@ -332,12 +342,12 @@ const Homepage = () => {
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
           <div className='_title_1uqbn_9'>
-          Что такое торговые сигналы и как ими пользоваться?
+            {t('home.faq.questions.3.question')}
           <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
           </div>
           <div className='_expanderContainer_1uqbn_47'>
             <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>Торговые сигналы — это рекомендации, которые помогают принимать решения о покупке или продаже активов на основе анализа рынка. Используйте их для повышения точности сделок. </div>
+              <div className='_description_1uqbn_34'>{t('home.faq.questions.3.answer')}</div>
             </div>
           </div>
         </div>
@@ -345,12 +355,12 @@ const Homepage = () => {
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
           <div className='_title_1uqbn_9'>
-          Какие методы пополнения счёта доступны?
+            {t('home.faq.questions.4.question')}
           <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
           </div>
           <div className='_expanderContainer_1uqbn_47'>
             <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>Пополнение счёта осуществляется на стороне платформы Pocket Option. </div>
+              <div className='_description_1uqbn_34'>{t('home.faq.questions.4.answer')}</div>
             </div>
           </div>
         </div>
@@ -358,12 +368,12 @@ const Homepage = () => {
       <div className='_wrapper_1uqbn_1'>
         <div className='_container_1uqbn_5'>
           <div className='_title_1uqbn_9'>
-          Есть ли поддержка 24/7?
+            {t('home.faq.questions.5.question')}
           <img src={plus} alt="plus" className='_plusImg_1uqbn_22'/>
           </div>
           <div className='_expanderContainer_1uqbn_47'>
             <div className='_expander_1uqbn_47'>
-              <div className='_description_1uqbn_34'>Да, если у вас возникнут вопросы, вы можете обратиться к нашей команде через Telegram. 
+              <div className='_description_1uqbn_34'>{t('home.faq.questions.5.answer')}
                 <a href="">ссылка ебать</a>
               </div>
             </div>
@@ -378,12 +388,12 @@ const Homepage = () => {
   <div className='_container_hq2vv_8 _wrapper_yvbyh_1'>
     
     <div className='_wrapper_1apmi_1 _titlesWrapper_yvbyh_33'>
-      <h2 className='_title_1apmi_7'>Будьте в курсе всех трендов трейдинга!</h2>
-      <p className='_description_1apmi_22'>Регистрируйтесь и получайте доступ к аналитике, эксклюзивным стратегиям.</p>
+      <h2 className='_title_1apmi_7'>{t('home.trends.title')}</h2>
+      <p className='_description_1apmi_22'>{t('home.trends.description')}</p>
     </div>
     <div className='_buttons_yvbyh_38'>
       <a href="/login" className='_button_13fxj_1 _action_13fxj_13'>
-        <span>Авторизация</span>
+        <span>{t('home.trends.login')}</span>
         <img src={click} alt="click" />
       </a>
     </div>
@@ -393,4 +403,11 @@ const Homepage = () => {
   );
 };
 
+Homepage.propTypes = {
+  isAuthenticated: PropTypes.bool
+};
+
+Homepage.defaultProps = {
+  isAuthenticated: false
+};
 export default Homepage;

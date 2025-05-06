@@ -7,7 +7,7 @@ import click from '../../assets/svg/click.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './login.css'
-const Login = () => {
+const Login = ({ setIsAuthenticated }) => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -35,6 +35,7 @@ const Login = () => {
                 const data = await response.json();
                 // Сохраняем токен или другую информацию, если нужно
                 localStorage.setItem('token', data.token);
+                setIsAuthenticated(true);
                 navigate('/signal'); // Перенаправляем на страницу /signal
             } else {
                 alert('Ошибка входа. Проверьте введённые данные.');

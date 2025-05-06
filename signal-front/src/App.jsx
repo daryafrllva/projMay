@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
@@ -15,19 +16,41 @@ import EnterId from './components/Vxod/enter-id';
 import History from './components/Profile/history';
 import Account from './components/Profile/account';
 import Wiki from "./components/Wiki/WikiPage.jsx";
+import HederAuth from './components/Header/HederAuth/HederAuth.jsx';
+import Instruction from './components/InstructionPage/InstructionPage';
+
+
+import BinaryOptionsArticle from './components/BinaryOptionsArticle/BinaryOptionsArticle';
+import TwoStat from "./components/BinaryOptionsArticle/TwoStat.jsx";
 
 
 const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const location = useLocation();
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+
 
   const noHeaderRoutes = ['/login', '/register', '/confirm-email', '/forgot-password'];
 
   return (
     <div className="app">
       <Loader>
-        {!noHeaderRoutes.includes(location.pathname) && <Header />}
+        {!noHeaderRoutes.includes(location.pathname) && (
+            <>
+              {isAuthenticated ? <HederAuth /> : <Header />}
+              <div className="language-switcher">
+                <button onClick={() => changeLanguage('ru')}>RU</button>
+                <button onClick={() => changeLanguage('en')}>EN</button>
+              </div>
+            </>
+        )}
+        <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/confirm-email" element={<ConfirmEmail />} />
           <Route path="/activated-email" element={<ActivatedEmail />} />
@@ -35,10 +58,27 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/history" element={<History />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/binary-options-guide" element={
+            <>
+              <main className="main-content">
+                <BinaryOptionsArticle />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/TwoStat" element={
+            <>
+              <main className="main-content">
+                <TwoStat />
+              </main>
+              <Footer />
+            </>
+          } />
+
           <Route path="/" element={
             <>
               <main className="main-content">
-                <HomePage />
+                <HomePage isAuthenticated={isAuthenticated} />
               </main>
               <Footer />
             </>
@@ -59,7 +99,16 @@ const App = () => {
               <Footer />
             </>
           } />
+          <Route path="/instruction" element={
+            <>
+              <main className="main-content">
+                <Instruction />
+              </main>
+              <Footer />
+            </>
+          } />
         </Routes>
+        </Suspense>
       </Loader>
     </div>
   );
