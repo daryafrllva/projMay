@@ -26,12 +26,12 @@ import herovideo from '../../assets/video/hero-video.mp4';
 import mock from '../../assets/video/mock.mp4';
 
 const Homepage = () => {
-  const announcementText = "AI BOSST USA";
+  const announcementText = "AI BOOST USA";
   const starIcon = <img src={star} alt="star" className="marquee-star" />;
 
-  const [onlineUsers, setOnlineUsers] = useState(0);
-  const [successfulSignals, setSuccessfulSignals] = useState(0);
-  const [unsuccessfulSignals, setUnsuccessfulSignals] = useState(0);
+  const onlineUsers = 129; 
+  const successfulSignals = 468; 
+  const unsuccessfulSignals = 72; 
   
   useEffect(() => {
     const fetchStats = async () => {
@@ -67,7 +67,7 @@ const Homepage = () => {
         <div className="_heroWrapper_17x2r_46">
           <div className="_text_17x2r_124">
             <h1 className='_title_17x2r_51'>
-              <span className="_selected_17x2r_60">AI BOSST USA </span>
+              <span className="_selected_17x2r_60">AI BOOST USA </span>
               PLATFORM
             </h1>
             <h2 className='_description_17x2r_71'>

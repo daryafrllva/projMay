@@ -3,7 +3,7 @@ import './Footer.less';
 import star from '../../assets/svg/star.svg';
 
 const Footer = () => {
-  const announcementText = "AI BOSST USA"; 
+  const announcementText = "AI BOOST USA"; 
   const starIcon = <img src={star} alt="star" className="marquee-star" />;
 
   return (

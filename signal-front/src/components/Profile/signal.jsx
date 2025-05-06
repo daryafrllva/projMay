@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import WeekendSignal from './weekendSignal';
 import cross from '../../assets/svg/cross.svg';
 import plus from '../../assets/svg/plus.svg';
 import click from '../../assets/svg/click.svg';
 import loadingbot from '../../assets/video/loading-bot.mp4';
 import info from '../../assets/svg/info.svg';
+import anal from '../../assets/svg/analitics.svg';
+import chart1 from '../../assets/svg/chart-1.svg';
+import chart2 from '../../assets/svg/chart2.svg';
+import chart3 from '../../assets/svg/chart3.svg';
+import chart4 from '../../assets/svg/chart4.svg';
+import chart5 from '../../assets/svg/chart5.svg';
+import chart6 from '../../assets/svg/chart6.svg';
 import AUD from '../../assets/svg/AUD.svg';
 import CAD from '../../assets/svg/CAD.svg';
 import CHF from '../../assets/svg/CHF.svg';
@@ -19,13 +26,30 @@ import IND from '../../assets/svg/IND.svg';
 import PLUSA from '../../assets/svg/PLUSA.svg';
 import './signal.css';
 
-const currencyIcons = { AUD, CAD, CHF, EUR, GBP, JPY, USD }; 
+const currencyIcons = { AUD, CAD, CHF, EUR, GBP, JPY, USD };
 const currencyPairs = ['EURUSD', 'GBPUSD', 'USDJPY', 'AUDUSD', 'USDCAD', 'USDCHF'];
+
+const generateRandomPair = () => {
+  const max = 99;
+  const min = 60;
+
+  const secondMin = min;
+  const secondMax = max;
+  const second = Math.floor(Math.random() * (secondMax - secondMin + 1)) + secondMin;
+
+  const targetDifference = 10;
+  const firstMin = Math.max(min, second - 15);
+  const firstMax = Math.min(second - 5, 99);
+
+  const first = Math.floor(Math.random() * (firstMax - firstMin + 1)) + firstMin;
+
+  return { first, second };
+};
 
 const Signal = () => {
   const [isWeekend, setIsWeekend] = useState(false);
   const [isBalanceChecked, setIsBalanceChecked] = useState(false);
-  const [hasSufficientBalance, setHasSufficientBalance] = useState(true);
+  const [isAnalyticsModalOpen, setIsAnalyticsModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [expandedSections, setExpandedSections] = useState({});
   const [selectedAI, setSelectedAI] = useState(null);
@@ -33,6 +57,61 @@ const Signal = () => {
   const [showChart, setShowChart] = useState(false);
   const [selectedPair, setSelectedPair] = useState(null);
   const [startPrice, setStartPrice] = useState(null);
+
+  const [slidingAverages, setSlidingAverages] = useState(() => {
+    const saved = localStorage.getItem('slidingAverages');
+    return saved ? JSON.parse(saved) : generateRandomPair();
+  });
+
+  const [movementPotential, setMovementPotential] = useState(() => {
+    const saved = localStorage.getItem('movementPotential');
+    return saved ? JSON.parse(saved) : generateRandomPair();
+  });
+
+  const [trendStrength, setTrendStrength] = useState(() => {
+    const saved = localStorage.getItem('trendStrength');
+    return saved ? JSON.parse(saved) : generateRandomPair();
+  });
+
+  const [power, setPower] = useState(() => {
+    const saved = localStorage.getItem('power');
+    return saved ? JSON.parse(saved) : generateRandomPair();
+  });
+
+  const [profile, setProfile] = useState(() => {
+    const saved = localStorage.getItem('profile');
+    return saved ? JSON.parse(saved) : generateRandomPair();
+  });
+
+  const [tolpa, setTolpa] = useState(() => {
+    const saved = localStorage.getItem('tolpa');
+    return saved ? JSON.parse(saved) : generateRandomPair();
+  });
+
+  // Таймер
+  const [timerValue, setTimerValue] = useState(null); 
+  const [timeLeft, setTimeLeft] = useState(null); 
+  const timerRef = useRef(null);
+
+  // Для результата и цены закрытия
+  const [result, setResult] = useState(null);
+  const [endPrice, setEndPrice] = useState(null);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.removeItem('slidingAverages');
+      localStorage.removeItem('movementPotential');
+      localStorage.removeItem('trendStrength');
+      localStorage.removeItem('power');
+      localStorage.removeItem('profile');
+      localStorage.removeItem('tolpa');
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
   useEffect(() => {
     const today = new Date().getDay();
@@ -42,6 +121,10 @@ const Signal = () => {
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
+  };
+
+  const toggleAnalyticsModal = () => {
+    setIsAnalyticsModalOpen(!isAnalyticsModalOpen);
   };
 
   const toggleSection = (section) => {
@@ -57,13 +140,92 @@ const Signal = () => {
 
   const handleTimeSelection = (time) => {
     setSelectedTime(time);
+    // Преобразуем '3 MIN' -> 180, '5 MIN' -> 300 и т.д.
+    const minutes = parseInt(time);
+    setTimerValue(minutes * 60);
   };
 
+  const [direction, setDirection] = useState('down');
+
+  const fetchRandomPairAndPrice = async () => {
+    try {
+      const currencyPairs = ['EUR-USD', 'GBP-USD', 'USD-JPY', 'AUD-USD', 'USD-CAD', 'USD-CHF'];
+      const randomPair = currencyPairs[Math.floor(Math.random() * currencyPairs.length)];
+      setSelectedPair(randomPair);
+
+      const priceResponse = await fetch(`https://api.coinbase.com/v2/prices/${randomPair}/spot`);
+      const priceData = await priceResponse.json();
+      setStartPrice(parseFloat(priceData.data.amount).toFixed(4));
+      setShowChart(true);
+      setTimeLeft(timerValue); // запуск таймера при показе графика
+      setResult(null);
+      setEndPrice(null);
+      setDirection(Math.random() < 0.5 ? 'up' : 'down');
+    } catch (error) {
+      console.error('Ошибка при получении данных:', error);
+    }
+  };
+
+  // Таймер: запускать при showChart и timerValue
+  useEffect(() => {
+    if (showChart && timerValue) {
+      setTimeLeft(timerValue);
+      setResult(null);
+      setEndPrice(null);
+      if (timerRef.current) clearInterval(timerRef.current);
+      timerRef.current = setInterval(() => {
+        setTimeLeft(prev => {
+          if (prev === 1) {
+            clearInterval(timerRef.current);
+            return 0;
+          }
+          return prev > 0 ? prev - 1 : 0;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(timerRef.current);
+  }, [showChart, timerValue]);
+
+  // Проверка результата по окончанию таймера
+  useEffect(() => {
+    if (showChart && timeLeft === 0 && selectedPair && startPrice) {
+      const checkResult = async () => {
+        try {
+          const priceResponse = await fetch(`https://api.coinbase.com/v2/prices/${selectedPair}/spot`);
+          const priceData = await priceResponse.json();
+          const endPriceValue = parseFloat(priceData.data.amount).toFixed(5);
+          setEndPrice(endPriceValue);
+
+          if (parseFloat(endPriceValue) > parseFloat(startPrice)) {
+            setResult('win');
+          } else if (parseFloat(endPriceValue) < parseFloat(startPrice)) {
+            setResult('lose');
+          } else {
+            setResult('neutral');
+          }
+        } catch (error) {
+          setResult('neutral');
+        }
+      };
+      checkResult();
+    }
+  }, [timeLeft, showChart, selectedPair, startPrice]);
+
   const handleNewSignal = () => {
-    const pair = currencyPairs[Math.floor(Math.random() * currencyPairs.length)];
-    setSelectedPair(pair);
-    setStartPrice((Math.random() * (1.5 - 1) + 1).toFixed(4));
-    setShowChart(true);
+    fetchRandomPairAndPrice();
+  };
+
+  // Сброс сигнала: возвращаем к выбору AI и таймера
+  const handleResetSignal = () => {
+    setShowChart(false);
+    setSelectedPair(null);
+    setStartPrice(null);
+    setSelectedAI(null);
+    setSelectedTime(null);
+    setTimerValue(null);
+    setTimeLeft(null);
+    setResult(null);
+    setEndPrice(null);
   };
 
   if (isWeekend) {
@@ -211,84 +373,236 @@ const Signal = () => {
     );
   }
 
-
   if (showChart && selectedPair) {
+    // Форматируем таймер в mm:ss
+    const formatTime = (seconds) => {
+      const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+      const s = (seconds % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    };
+
     return (
       <section className='_wrapper_hq2vv_1'>
         <div className='_container_hq2vv_8 _wrapper_18eu1_1'>
           <div className='_tvWrapper_1yk8r_225'>
-          <div className='tradingview-widget-container' style={{ height: '600px', width: '100%' }}>
-            <iframe
-              style={{ height: '100%', width: '100%' }}
-              src={`https://www.tradingview.com/widgetembed/?symbol=${selectedPair}&interval=1&theme=dark`}
-              frameBorder="0"
-            ></iframe>
-          </div>
+            <div className='tradingview-widget-container' style={{ height: '600px', width: '100%' }}>
+              <iframe
+                style={{ height: '100%', width: '100%' }}
+                src={`https://www.tradingview.com/widgetembed/?symbol=${selectedPair.replace('-', '')}&interval=1&theme=dark`}
+                frameBorder="0"
+              ></iframe>
+            </div>
             <div className='tradingview-widget-copyright'>
               <a href="https://www.tradingview.com/?utm_source=36signal.com&utm_medium=widget_new&utm_campaign=advanced-chart">
-              <span className='blue-text'>Track all markets on TradingView</span>
               </a>
             </div>
           </div>
           <p className='_otcWarning_1yk8r_233'>
             Если валютная пара на брокере отображается как OTC, нажмите «Сбросить сигнал», чтобы получить новый.
-            </p>
-            <div className='_signalVideo_1yk8r_1 _hidden_1yk8r_8'>
-              <video className='_video_1yk8r_12'></video>
-            </div>
-            <div className='_desktopPendingWrapper_1yk8r_400'>
-              <div className='_openPricePendingWrapper_1yk8r_44'>
-                <p className='_openPricePendingText_1yk8r_51'>
-                  <p className='_openPricePending_1yk8r_44'>
-                    <img src="" alt="" />
-                    <span className='_openPrice_1yk8r_44'>Цена открытия:</span>
-                    <span className='_openPriceValue_1yk8r_331'>
-                      <img src="" alt="" />
-                      <span className='_openPricePendingValue_1yk8r_59'>{startPrice}</span>
-                    </span>
-                  </p>
-                </p>
-              
+          </p>
+          <div className='_signalVideo_1yk8r_1 _hidden_1yk8r_8'>
+            <video className='_video_1yk8r_12'></video>
+          </div>
+          <div className='_desktopPendingWrapper_1yk8r_400'>
+            <div className='_openPricePendingWrapper_1yk8r_44'>
+              <p className='_openPricePendingText_1yk8r_51'>
+                <span className='_openPrice_1yk8r_44'>Цена открытия:</span>
+                <span className='_openPriceValue_1yk8r_331'>
+                  <span className='_openPricePendingValue_1yk8r_59'>{startPrice}</span>
+                </span>
+              </p>
             </div>
             <div className='_processContainer_1yk8r_29 _signalWaiting_1yk8r_262'>
               <div className='_topResultContainer_1yk8r_242 _signalWaiting_1yk8r_262'>
                 <div className='_signalWrapper_1yk8r_262 _signalWaiting_1yk8r_262'>
                   <p className='_title_1yk8r_36'>
-                  </p>
-                  <div className='_imagesContainer_1lcee_1'>
-                  <span className="_logo_1lcee_7">
-                    <img src={currencyIcons[selectedPair.slice(0, 3)]} alt={selectedPair.slice(0, 3)} />
-                  </span>
-                  <span className="_logo_1lcee_7">
-                    <img src={currencyIcons[selectedPair.slice(3)]} alt={selectedPair.slice(3)} />
-                  </span>
-                </div>
-                  <p className='_signalDataInfo_1yk8r_291'>
-                    <span>{selectedPair}</span>
-                    <span className='_signalBuyText_1yk8r_312'></span>
-                    <span>time</span>
+                    <div className='_imagesContainer_1lcee_1'>
+                      <span className="_logo_1lcee_7">
+                        <img src={currencyIcons[selectedPair.split('-')[0]]} alt={selectedPair.split('-')[0]} />
+                      </span>
+                      <span className="_logo_1lcee_7">
+                        <img src={currencyIcons[selectedPair.split('-')[1]]} alt={selectedPair.split('-')[1]} />
+                      </span>
+                    </div>
+                    <p className='_signalDataInfo_1yk8r_291' style={{ backgroundColor: 'none' }}>
+                      <span>{selectedPair}</span>
+                      <span className='_signalBuyText_1yk8r_312' style={{
+                        color: direction === 'up' ? '#00FF7F' : '#FF4D4D',
+                        fontWeight: 700,
+                        margin: '0 10px'
+                      }}>
+                        {direction === 'up' ? 'Вверх' : 'Вниз'}
+                      </span>
+                      <span>{selectedTime}</span>
+                    </p>
                   </p>
                 </div>
               </div>
-              <div className='_signalAnalytics_1yk8r_163'>
-                <img src="" alt="" />
+              <div className='_signalAnalytics_1yk8r_163' onClick={toggleAnalyticsModal}>
+                <img src={anal} alt="Analitica" />
+                Аналитика
+              </div>
+              {isAnalyticsModalOpen && (
+                <div className='_modal_b50nl_1'>
+                  <div className='_modalContent_b50nl_28 _analyticsModal_1yk8r_159'>
+                    <div className='_closeBtn_b50nl_42' onClick={toggleAnalyticsModal}>
+                      <img src={cross} alt="cross" />
+                    </div>
+                    <div className='_statisticsInnerContainer_1yk8r_111'>
+                      <div className='_statisticsCard_1yk8r_127'>
+                        <h3>Технический анализ на покупку:</h3>
+                        <div className='_statisticsData_1yk8r_119'>
+                          <p>
+                            <img src={chart1} alt="chart1" />
+                            <span>Скользящие средние:
+                              <b>{slidingAverages.first}%</b>
+                              -
+                              <b>{slidingAverages.second}%</b>
+                            </span>
+                          </p>
+                          <p>
+                            <img src={chart2} alt="chart2" />
+                            <span>Потенциал движения:
+                              <b>{movementPotential.first}%</b>
+                              -
+                              <b>{movementPotential.second}%</b>
+                            </span>
+                          </p>
+                          <p>
+                            <img src={chart3} alt="chart3" />
+                            <span>Сила тренда:
+                              <b>{trendStrength.first}%</b>
+                              -
+                              <b>{trendStrength.second}%</b>
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      <div className='_statisticsCard_1yk8r_127'>
+                        <h3>Объёмный анализ на покупку:</h3>
+                        <div className='_statisticsData_1yk8r_119'>
+                          <p>
+                            <img src={chart4} alt="chart1" />
+                            <span> Сила продавца:
+                              <b> {power.first}%</b>
+                              -
+                              <b> {power.second}%</b>
+                            </span>
+                          </p>
+                          <p>
+                            <img src={chart5} alt="chart1" />
+                            <span>Объёмный профиль:
+                              <b> {profile.first}%</b>
+                              -
+                              <b> {profile.second}%</b>
+                            </span>
+                          </p>
+                          <p>
+                            <img src={chart6} alt="chart1" />
+                            <span> Настроение толпы:
+                              <b> {tolpa.first}%</b>
+                              -
+                              <b> {tolpa.second}%</b>
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
+              )}
             </div>
             <div className='_progressBarWrapper_1yk8r_395'>
               <p className='_endTimeText_qnld5_32'>Результат через:</p>
               <div className='_wrapper_qnld5_1'>
                 <div className='_container_qnld5_10'>
-                  <div className='_bar_qnld5_17'></div>
+                  <div
+                    className='_bar_qnld5_17'
+                    style={{
+                      width: timerValue
+                        ? `${100 - Math.round((timeLeft / timerValue) * 100)}%`
+                        : '0%',
+                      transition: 'width 1s linear'
+                    }}
+                  ></div>
                 </div>
               </div>
+              <p className='_timeText_qnld5_22'>{timeLeft !== null ? formatTime(timeLeft) : ''}</p>
+              {/* Результат и цены после таймера */}
+              {result && (
+                <div style={{ textAlign: 'center', margin: '40px 0 24px 0' }}>
+                  <span
+                    style={{
+                      color: result === 'win' ? '#00FF7F' : result === 'lose' ? '#FF4D4D' : '#fff',
+                      fontWeight: 900,
+                      fontSize: 64,
+                      letterSpacing: 2,
+                      textTransform: 'uppercase',
+                      display: 'block',
+                      marginBottom: 32,
+                    }}
+                    className={`_signalResultText_1yk8r_198 ${result === 'win' ? '_win_1yk8r_206' : result === 'lose' ? '_lose_1yk8r_207' : '_neutral_1yk8r_208'}`}
+                  >
+                    {result === 'win' && 'WIN'}
+                    {result === 'lose' && 'LOSE'}
+                    {result === 'neutral' && 'NEUTRAL'}
+                  </span>
+                  <div style={{ maxWidth: 520, margin: '0 auto' }}>
+                    <div
+                      style={{
+                        background: '#181818',
+                        borderRadius: 32,
+                        padding: '18px 36px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        fontSize: 22,
+                        fontWeight: 600,
+                        marginBottom: 18,
+                        color: '#fff',
+                      }}
+                    >
+                      <svg width="24" height="24" style={{ marginRight: 12 }} viewBox="0 0 24 24" fill="none"><path d="M4 12L10 18L20 6" stroke="#00FF7F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      <span style={{ marginRight: 12 }}>Цена открытия:</span>
+                      <span style={{ color: '#00FF7F', fontWeight: 700, marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+                        <svg width="15" height="13" viewBox="0 0 15 13" fill="none" style={{ marginRight: 6 }}><path d="M7.5 0L14.8612 12.75H0.138784L7.5 0Z" fill="#00FF7F"/></svg>
+                        ${startPrice}
+                      </span>
+                    </div>
+                    <div
+                      style={{
+                        background: '#181818',
+                        borderRadius: 32,
+                        padding: '18px 36px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        fontSize: 22,
+                        fontWeight: 600,
+                        color: '#fff',
+                      }}
+                    >
+                      <svg width="24" height="24" style={{ marginRight: 12 }} viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#FF4D4D" strokeWidth="2"/><path d="M12 6V12L15 15" stroke="#FF4D4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      <span style={{ marginRight: 12 }}>Цена закрытия:</span>
+                      <span style={{ color: result === 'win' ? '#00FF7F' : '#FF4D4D', fontWeight: 700, marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+                        <svg width="15" height="13" viewBox="0 0 15 13" fill="none" style={{ marginRight: 6, transform: result === 'win' ? 'rotate(180deg)' : 'none' }}>
+                          <path d="M7.5 0L14.8612 12.75H0.138784L7.5 0Z" fill={result === 'win' ? '#00FF7F' : '#FF4D4D'}/>
+                        </svg>
+                        ${endPrice}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-            <p className='_timeText_qnld5_22'></p>
-        </div>
-        <div className='_getContainer_1yk8r_16'>
-          <button type='button' className='_button_13fxj_1 _common_13fxj_28'>
-            <span>Сбросить сигнал</span>
-          </button>
+          </div>
+          <div className='_getContainer_1yk8r_16'>
+            <button
+              type='button'
+              className='_button_13fxj_1 _common_13fxj_28'
+              onClick={handleResetSignal}
+            >
+              <span>Сбросить сигнал</span>
+            </button>
+          </div>
         </div>
       </section>
     );
@@ -334,7 +648,12 @@ const Signal = () => {
         </div>
         <div className='_desktopPendingWrapper_1yk8r_400'>
           <div className='_getContainer_1yk8r_16'>
-            <button type='button' className='_button_13fxj_1 _action_13fxj_13' onClick={handleNewSignal}>
+            <button
+              type='button'
+              className='_button_13fxj_1 _action_13fxj_13'
+              onClick={handleNewSignal}
+              disabled={!selectedAI || !selectedTime}
+            >
               <span>Получить новый сигнал</span>
               <img src={click} alt="click" />
             </button>

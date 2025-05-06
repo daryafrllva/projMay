@@ -63,7 +63,7 @@
 
 
 /* SectionWrapper-CdhYYsr6.css */
-._wrapper_hq2vv_1{min-height:680px;position:relative;display:flex;flex-direction:column;align-items:center}._container_hq2vv_8{padding:40px 24px;max-width:1440px;width:100%;display:flex;flex-direction:column;gap:40px}@media (min-width: 692px){._container_hq2vv_8{padding:50px 98px}}@media (min-width: 1440px){._container_hq2vv_8{max-width:2370px}}
+._wrapper_hq2vv_1{min-height:680px;position:relative;display:flex;flex-direction:column;align-items:center}._container_hq2vv_8{padding:40px 24px;max-width:1440px;width:100%;display:flex;flex-direction:column;gap:40px}@media (min-width: 692px){._container_hq2vv_8{padding:50px 98px}}@media ({min-width: 1440px;padding-top: 100px}){._container_hq2vv_8{max-width:2370px}}
 
 
 /* Стили для содержимого модального окна */
@@ -142,4 +142,73 @@
     flex-direction: column;
     align-items: center; /* Центрируем содержимое */
     gap: 20px; /* Добавляем расстояние между карточкой и кнопкой */
+  }
+  ._imagesContainer_1lcee_1 {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  ._logo_1lcee_7 {
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  ._logo_1lcee_7:first-child {
+    top: 0;
+    left: 0;
+    clip-path: circle(50% at 50% 50%);
+  }
+  
+  ._logo_1lcee_7:last-child {
+    bottom: 0;
+    right: 0;
+    clip-path: circle(50% at 50% 50%);
+    transform: translate(-10%, 10%);
+  }
+  
+  ._logo_1lcee_7 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  ._signalDataInfo_1yk8r_291 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    padding: 8px 16px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  ._signalDataInfo_1yk8r_291 span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    border-radius: 8px;
+  }
+  
+  ._signalDataInfo_1yk8r_291 span:nth-child(2) {
+      background-color: none; /* Red background for "Down" */
+      color: #fff;
+  }
+  
+  ._signalDataInfo_1yk8r_291 span:nth-child(3) {
+      background-color: #333; /* Dark background for neutral */
+      color: #fff;
+  }
+
+  ._tvWrapper_1yk8r_225 {
+    margin-top: 40px; /* или больше, если нужно */
   }
