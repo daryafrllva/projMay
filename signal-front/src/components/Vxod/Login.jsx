@@ -11,7 +11,8 @@ import './login.css'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Login = () => {
+
+const Login = ({ setIsAuthenticated }) => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -38,8 +39,10 @@ const Login = () => {
 
             if (response.ok) {
                 const data = await response.json();
+                // Сохраняем токен или другую информацию, если нужно
                 localStorage.setItem('token', data.token);
-                navigate('/signal'); 
+                navigate('/signal');
+                setIsAuthenticated(true);
             } else {
                 toast.error('Ошибка входа. Проверьте введённые данные.');
             }

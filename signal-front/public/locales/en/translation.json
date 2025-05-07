@@ -1,0 +1,116 @@
+{
+  "header": {
+    "home": "Home",
+    "about": "About Us",
+    "instruction": "Instruction",
+    "wiki": "Wiki",
+    "history": "Trade History",
+    "login": "Login",
+    "account": "Account"
+  },
+  "home": {
+    "title": "AI BOOST USA PLATFORM",
+    "description": "Modern tools will open the way to success. We are created to make trading accessible, understandable and profitable for everyone. Get free binary options signals using our platform.",
+    "stats": {
+      "onlineUsers": "Online visitors",
+      "successfulSignals": "Successful signals",
+      "unsuccessfulSignals": "Unsuccessful signals"
+    },
+    "cta": {
+      "register": "Register",
+      "getSignal": "Get signal"
+    },
+    "offer": {
+      "title": "What we offer?",
+      "features": [
+        {
+          "title": "Accurate trading signals",
+          "description": "Receive up-to-date signals for informed decisions in real time."
+        },
+        {
+          "title": "Quick start",
+          "description": "Start trading instantly - registration takes just a few minutes and you're ready for the market."
+        },
+        {
+          "title": "Intuitive interface",
+          "description": "User-friendly interface for easy access and quick operations from any device."
+        }
+      ]
+    },
+    "howItWorks": {
+      "title": "How it works?",
+      "steps": [
+        {
+          "title": "Registration",
+          "description": "Register on our platform and start using all its features."
+        },
+        {
+          "title": "Account funding",
+          "description": "Use reliable methods to quickly fund your account on the broker platform."
+        },
+        {
+          "title": "Start trading",
+          "description": "Use our platform's powerful tools for successful trading."
+        }
+      ]
+    },
+    "tools": {
+      "title": "Success tools",
+      "items": [
+        {
+          "title": "Analytical charts",
+          "description": "Data creates trends, and charts tell their stories. Imagine a tool that reveals market potential through clear and understandable visualization, allowing you to act confidently and quickly..."
+        },
+        {
+          "title": "Trading signals",
+          "description": "Clear signals in the whirlwind of market changes. Imagine a source that helps you make important decisions based on verified data rather than intuition. Find the perfect moments to act."
+        },
+        {
+          "title": "Modern approach",
+          "description": "Artificial intelligence is changing the game. Imagine a system that analyzes the market in real time, recognizes hidden patterns, and provides accurate trading signals. Less guessing - more informed decisions."
+        }
+      ]
+    },
+    "faq": {
+      "title": "FAQ",
+      "questions": [
+        {
+          "question": "How to start trading on your platform?",
+          "answer": "To start trading, register an account and fund your balance with broker Pocket Option. After that, you're ready to take your first step in trading."
+        },
+        {
+          "question": "Do I need to pay for signals?",
+          "answer": "No! Signals from AI BOOST USA are completely free, but to get access you need to be our referral on Pocket Option and deposit $10."
+        },
+        {
+          "question": "Is experience required for trading?",
+          "answer": "Our platform is designed for both beginners and professionals, so anyone can start."
+        },
+        {
+          "question": "What are trading signals and how to use them?",
+          "answer": "Trading signals are recommendations that help make decisions about buying or selling assets based on market analysis. Use them to increase the accuracy of your trades."
+        },
+        {
+          "question": "What deposit methods are available?",
+          "answer": "Account funding is handled on the Pocket Option platform side."
+        },
+        {
+          "question": "Is there 24/7 support?",
+          "answer": "Yes, if you have any questions, you can contact our team via Telegram."
+        }
+      ]
+    },
+    "trends": {
+      "title": "Stay updated with all trading trends!",
+      "description": "Register and get access to analytics, exclusive strategies.",
+      "login": "Login"
+    }
+  },
+  "about": {
+    "title": "We analyze | Create strategies | Achieve success",
+    "whoWeAre": "Who we are",
+    "mission1": "We are transforming trading by making it simple, clear, and accessible. You set goals, and we provide the tools that lead to success.",
+    "mission2": "Technology and analytics work for you. We create solutions that reduce risks and maximize profits in every trade.",
+    "mission3": "Trading is your story, and we make it brighter. A user-friendly interface, advanced analytics, and full support at every stage – all this helps you reach new heights."
+  }
+}

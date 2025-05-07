@@ -1,5 +1,6 @@
 // AboutAs.jsx
 import React, { useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import hand3 from "../../assets/svg/hand3.svg";
 import barsImg from "../../assets/png/bar.png";
 import shieldImg from "../../assets/png/shield.png";
@@ -7,6 +8,7 @@ import goldImg from "../../assets/png/gold.png";
 
 const AboutAs = () => {
     const sectionsRef = useRef([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const sectionObserver = new IntersectionObserver(
@@ -34,7 +36,7 @@ const AboutAs = () => {
     return (
         <section className="_wrapper_hq2vv_1 about-section-wrapper">
             <div className="_container_hq2vv_8 _whoContainer_wotaq_110">
-                <h2 className="_whoTitle_wotaq_40">Кто мы?</h2>
+                <h2 className="_whoTitle_wotaq_40">{t('about.whoWeAre')}</h2>
                 <div className="_whoWrapper_wotaq_50">
                     <div className="_whoHandImg_wotaq_95">
                         <img
@@ -50,9 +52,7 @@ const AboutAs = () => {
                             ref={el => sectionsRef.current[0] = el}
                         >
                             <img src={barsImg} alt="bars" className="_whoImg_wotaq_70" />
-                            <p className="_whoParagraph_wotaq_58">
-                                Мы меняем трейдинг, делая его простым, понятным и доступным. Вы ставите цели, а мы предоставляем инструменты, которые ведут к успеху.
-                            </p>
+                            <p className="_whoParagraph_wotaq_58">{t('about.mission1')}</p>
                             <div className="_dividerLine_wotaq_58"></div>
                         </div>
 
@@ -62,8 +62,7 @@ const AboutAs = () => {
                         >
                             <img src={shieldImg} alt="shield" className="_whoImg_wotaq_70" />
                             <p className="_whoParagraph_wotaq_58">
-                                Технологии и аналитика работают на вас. Мы создаем решения, которые снижают риски и максимизируют прибыль в каждой сделке.
-                            </p>
+                                {t('about.mission2')}                            </p>
                             <div className="_dividerLine_wotaq_58"></div>
                         </div>
 
@@ -73,8 +72,7 @@ const AboutAs = () => {
                         >
                             <img src={goldImg} alt="gold" className="_whoImg_wotaq_70" />
                             <p className="_whoParagraph_wotaq_58">
-                                Трейдинг – это ваша история, и мы делаем ее ярче. Удобный интерфейс, передовая аналитика и полная поддержка на каждом этапе – все это помогает вам достигать вершин.
-                            </p>
+                                {t('about.mission3')}                            </p>
                         </div>
                     </div>
                 </div>
