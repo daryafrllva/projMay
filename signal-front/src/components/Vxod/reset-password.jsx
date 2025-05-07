@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import cross from '../../assets/svg/cross.svg';
@@ -23,31 +24,28 @@ const ResetPassword = () => {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:8000/api/reset-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify({
-                    token,
-                    password,
-                }),
+            const response = await axios.post('/api/reset-password', {
+                token,
+                password,
             });
 
-            if (response.ok) {
+            if (response.status === 200) {
                 toast.success('Пароль успешно обновлён!');
                 setTimeout(() => navigate('/login'), 2000);
             } else {
-                const data = await response.json();
-                toast.error(data.message || 'Ошибка при обновлении пароля.');
+                toast.error(response.data?.message || 'Ошибка при обновлении пароля.');
             }
         } catch (error) {
-            toast.error('Ошибка при подключении к серверу.');
+            if (error.response && error.response.data && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error('Ошибка при подключении к серверу.');
+            }
         } finally {
             setLoading(false);
         }
     };
+
 
     return (
         <>

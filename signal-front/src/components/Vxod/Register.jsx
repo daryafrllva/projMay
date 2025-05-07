@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cross from '../../assets/svg/cross.svg';
@@ -41,26 +42,23 @@ const Register = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: formData.email,
-                    password: formData.password,
-                }),
+            const response = await axios.post('/api/register', {
+                email: formData.email,
+                password: formData.password,
             });
 
-            if (response.ok) {
+            if (response.status === 200 || response.status === 201) {
                 navigate('/confirm-email');
             } else {
-                const errorData = await response.json();
-                toast.error(errorData.message || 'Ошибка регистрации');
+                toast.error(response.data?.message || 'Ошибка регистрации');
             }
         } catch (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error('Произошла ошибка. Попробуйте снова.');
+            }
             console.error('Ошибка:', error);
-            toast.error('Произошла ошибка. Попробуйте снова.');
         }
     };
 

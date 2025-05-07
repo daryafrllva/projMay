@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import cross from '../../assets/svg/cross.svg';
 import click from '../../assets/svg/click.svg';
@@ -68,31 +69,25 @@ const EnterId = () => {
         e.preventDefault();
         setErrorMessage('');
         setSuccessMessage('');
-
+    
         if (!id) {
             setErrorMessage('ID не может быть пустым.');
             return;
         }
-
+    
         try {
-            const response = await fetch('http://localhost:8000/api/check-client', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify({ id }),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                setSuccessMessage(data.message || 'ID успешно проверен!');
+            const response = await axios.post('/api/check-client', { id });
+            if (response.status === 200) {
+                setSuccessMessage(response.data.message || 'ID успешно проверен!');
             } else {
-                const errorData = await response.json();
-                setErrorMessage(errorData.message || 'Ошибка проверки ID.');
+                setErrorMessage(response.data?.message || 'Ошибка проверки ID.');
             }
         } catch (error) {
-            setErrorMessage('Произошла ошибка. Попробуйте снова.');
+            if (error.response && error.response.data && error.response.data.message) {
+                setErrorMessage(error.response.data.message);
+            } else {
+                setErrorMessage('Произошла ошибка. Попробуйте снова.');
+            }
         }
     };
 

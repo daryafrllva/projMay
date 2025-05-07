@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import click from '../../assets/svg/click.svg';
 import { toast, ToastContainer } from 'react-toastify';
@@ -29,31 +30,27 @@ const ForgotPassword = () => {
         }, 1000);
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const email = e.target.email.value;
 
         try {
-            const response = await fetch('http://localhost:8000/forgot-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify({ email }),
-            });
+            const response = await axios.post('/api/forgot-password', { email });
 
-            if (response.ok) {
+            if (response.status === 200) {
                 toast.success('Письмо отправлено! Проверьте вашу почту.');
                 startTimer();
             } else {
-                const data = await response.json();
-                toast.error(data.message || 'Ошибка при отправке запроса. Попробуйте снова.');
+                toast.error(response.data?.message || 'Ошибка при отправке запроса. Попробуйте снова.');
             }
         } catch (error) {
-            console.error('Ошибка:', error);
-            toast.error('Ошибка при подключении к серверу.');
+            if (error.response && error.response.data && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error('Ошибка при подключении к серверу.');
+            }
         }
     };
 

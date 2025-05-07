@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const ConfirmEmail = ({ email }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-    const [timer, setTimer] = useState(30); // Таймер на 30 секунд
+    const [timer, setTimer] = useState(30); 
 
     useEffect(() => {
         let interval;
@@ -29,28 +29,21 @@ const ConfirmEmail = ({ email }) => {
 
     const resendEmail = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/email/verification-notification', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                // Если пользователь авторизован через токен, добавьте credentials: 'include'
-                // credentials: 'include',
-                body: JSON.stringify({ email }), // Если email нужен, иначе уберите
-            });
-
-            if (response.ok) {
+            const response = await axios.post('/api/email/verification-notification', { email });
+            if (response.status === 200) {
                 toast.success('Письмо отправлено повторно.');
                 setIsButtonDisabled(true);
                 setTimer(30);
             } else {
-                const data = await response.json();
-                toast.error(data.message || 'Ошибка при отправке письма. Попробуйте снова.');
+                toast.error(response.data?.message || 'Ошибка при отправке письма. Попробуйте снова.');
             }
         } catch (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error('Произошла ошибка. Попробуйте снова.');
+            }
             console.error('Ошибка:', error);
-            toast.error('Произошла ошибка. Попробуйте снова.');
         }
     };
 

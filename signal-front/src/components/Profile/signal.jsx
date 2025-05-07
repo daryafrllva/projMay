@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import WeekendSignal from './weekendSignal';
 import cross from '../../assets/svg/cross.svg';
 import plus from '../../assets/svg/plus.svg';
@@ -120,16 +121,9 @@ const Signal = () => {
   useEffect(() => {
     const checkBalance = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/check-client', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
+        const response = await axios.post('/api/check-client');
+        if (response.status === 200) {
+          const data = response.data;
           setIsBalanceChecked(true);
           setBalance(data.balance);
           if (data.balance < 10) {
